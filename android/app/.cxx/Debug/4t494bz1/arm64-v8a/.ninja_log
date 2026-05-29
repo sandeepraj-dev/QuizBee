@@ -1,0 +1,15 @@
+# ninja log v5
+2	48	0	D:/SELF-PROJECT/Mobile Application/QuizBee/android/app/.cxx/Debug/4t494bz1/arm64-v8a/CMakeFiles/cmake.verify_globs	f59a0eedacdb0de6
+69	7176	8017629814084596	safeareacontext_autolinked_build/CMakeFiles/react_codegen_safeareacontext.dir/59f3c67878f153a3404f2f259b7fdc34/renderer/components/safeareacontext/States.cpp.o	5167f42b5ca09bc8
+32	8050	8017629823100212	safeareacontext_autolinked_build/CMakeFiles/react_codegen_safeareacontext.dir/517bc0a1ad7dea1182c4cee43cf98ca4/components/safeareacontext/EventEmitters.cpp.o	562f30989ba5ae6
+51	8713	8017629829669067	safeareacontext_autolinked_build/CMakeFiles/react_codegen_safeareacontext.dir/3fe654cb1650530dafa4ee4fdb99b700/source/codegen/jni/safeareacontext-generated.cpp.o	4115defc0541d0bb
+120	10430	8017629846969152	CMakeFiles/appmodules.dir/OnLoad.cpp.o	81fe4b22b0e42bed
+23	11984	8017629862240356	safeareacontext_autolinked_build/CMakeFiles/react_codegen_safeareacontext.dir/59f3c67878f153a3404f2f259b7fdc34/renderer/components/safeareacontext/Props.cpp.o	f8c6628226d40cfd
+13	11113	8017629853765588	safeareacontext_autolinked_build/CMakeFiles/react_codegen_safeareacontext.dir/5790b4f02b8d22c0d08239309427f0f0/safeareacontext/RNCSafeAreaViewState.cpp.o	a610eddc7d415833
+61	11658	8017629859293135	safeareacontext_autolinked_build/CMakeFiles/react_codegen_safeareacontext.dir/517bc0a1ad7dea1182c4cee43cf98ca4/components/safeareacontext/ShadowNodes.cpp.o	d58d5d36ac2760f7
+41	12788	8017629870486222	safeareacontext_autolinked_build/CMakeFiles/react_codegen_safeareacontext.dir/49f7473ef2554aa3ab131d34d34db03a/safeareacontext/ComponentDescriptors.cpp.o	9645d52549cd223f
+3	13800	8017629880692924	safeareacontext_autolinked_build/CMakeFiles/react_codegen_safeareacontext.dir/5790b4f02b8d22c0d08239309427f0f0/safeareacontext/RNCSafeAreaViewShadowNode.cpp.o	c494c857484cc320
+13801	13960	8017629882385692	D:/SELF-PROJECT/Mobile Application/QuizBee/android/app/build/intermediates/cxx/Debug/4t494bz1/obj/arm64-v8a/libreact_codegen_safeareacontext.so	539cb2f2ca862c78
+79	14020	8017629882821076	CMakeFiles/appmodules.dir/D_/SELF-PROJECT/Mobile_Application/QuizBee/android/app/build/generated/autolinking/src/main/jni/autolinking.cpp.o	c88018c537c34e37
+14021	14159	8017629884441587	D:/SELF-PROJECT/Mobile Application/QuizBee/android/app/build/intermediates/cxx/Debug/4t494bz1/obj/arm64-v8a/libappmodules.so	10d00aaf0adade6c
+2	43	0	D:/SELF-PROJECT/Mobile Application/QuizBee/android/app/.cxx/Debug/4t494bz1/arm64-v8a/CMakeFiles/cmake.verify_globs	f59a0eedacdb0de6

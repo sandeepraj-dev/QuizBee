@@ -1,0 +1,4 @@
+D:/SELF-PROJECT/Mobile Application/QuizBee/android/app/.cxx/Debug/4t494bz1/x86/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/foo.dir
+D:/SELF-PROJECT/Mobile Application/QuizBee/android/app/.cxx/Debug/4t494bz1/x86/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/boo.dir
+D:/SELF-PROJECT/Mobile Application/QuizBee/android/app/.cxx/Debug/4t494bz1/x86/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/edit_cache.dir
+D:/SELF-PROJECT/Mobile Application/QuizBee/android/app/.cxx/Debug/4t494bz1/x86/CMakeFiles/_CMakeLTOTest-CXX/bin/CMakeFiles/rebuild_cache.dir
