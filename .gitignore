@@ -1,0 +1,43 @@
+# Node dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Android build artifacts
+android/app/build/
+android/.gradle/
+android/local.properties
+android/GeneratedPluginRegistrant.java
+
+# iOS build artifacts
+ios/build/
+ios/Pods/
+ios/.xccheckout
+ios/*.xcworkspace
+ios/*.pbxuser
+ios/*.mode1v3
+ios/*.mode2v3
+ios/*.perspectivev3
+ios/DerivedData/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor-specific files
+.idea/
+.vscode/
+*.swp
+*.swo
