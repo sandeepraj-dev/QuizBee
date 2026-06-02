@@ -15,6 +15,7 @@ import {
 
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
 import API from './../../api/axios';
 export default function CreateClassroomScreen() {
@@ -24,6 +25,7 @@ export default function CreateClassroomScreen() {
   const [nameError, setNameError] = useState('');
   const [descriptionError, setDescriptionError] = useState('');
 
+  const navigation = useNavigation();
   const createClassroom = async () => {
     let valid = true;
 
@@ -89,15 +91,44 @@ export default function CreateClassroomScreen() {
       <StatusBar backgroundColor="#4F46E5" barStyle="light-content" />
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        <LinearGradient colors={['#4F46E5', '#7C3AED']} style={styles.header}>
-          <View style={styles.iconContainer}>
-            <Icon name="school" size={40} color="#FFF" />
+        <LinearGradient
+          colors={['#4F46E5', '#7C3AED', '#9333EA']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={styles.header}
+        >
+          {/* Background Design */}
+          <View style={styles.circle1} />
+          <View style={styles.circle2} />
+
+          {/* Top Row */}
+          <View style={styles.headerTop}>
+            <TouchableOpacity
+              style={styles.backButton}
+              onPress={() => navigation.goBack()}
+            >
+              <Icon name="arrow-back" size={24} color="#FFF" />
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.menuButton}>
+              <Icon name="ellipsis-horizontal" size={22} color="#FFF" />
+            </TouchableOpacity>
+          </View>
+
+          {/* Icon */}
+          <View style={styles.iconWrapper}>
+            <LinearGradient
+              colors={['rgba(255,255,255,0.3)', 'rgba(255,255,255,0.15)']}
+              style={styles.iconContainer}
+            >
+              <Icon name="school" size={42} color="#FFF" />
+            </LinearGradient>
           </View>
 
           <Text style={styles.title}>Create Classroom</Text>
 
           <Text style={styles.subtitle}>
-            Create and manage learning batches
+            Create learning batches and manage students efficiently
           </Text>
         </LinearGradient>
 
@@ -255,5 +286,87 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     marginLeft: 5,
     fontWeight: '500',
+  },
+  header: {
+    paddingTop: 20,
+    paddingHorizontal: 20,
+    paddingBottom: 35,
+    borderBottomLeftRadius: 35,
+    borderBottomRightRadius: 35,
+    overflow: 'hidden',
+  },
+
+  headerTop: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  backButton: {
+    width: 45,
+    height: 45,
+    borderRadius: 22,
+    backgroundColor: 'rgba(255,255,255,0.18)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  menuButton: {
+    width: 45,
+    height: 45,
+    borderRadius: 22,
+    backgroundColor: 'rgba(255,255,255,0.18)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  iconWrapper: {
+    alignItems: 'center',
+    marginTop: 25,
+  },
+
+  iconContainer: {
+    width: 95,
+    height: 95,
+    borderRadius: 28,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  title: {
+    fontSize: 30,
+    fontWeight: '800',
+    color: '#FFF',
+    textAlign: 'center',
+    marginTop: 20,
+  },
+
+  subtitle: {
+    color: 'rgba(255,255,255,0.85)',
+    textAlign: 'center',
+    marginTop: 8,
+    fontSize: 14,
+    lineHeight: 22,
+    paddingHorizontal: 20,
+  },
+
+  circle1: {
+    position: 'absolute',
+    width: 180,
+    height: 180,
+    borderRadius: 90,
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    top: -50,
+    right: -50,
+  },
+
+  circle2: {
+    position: 'absolute',
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    bottom: -30,
+    left: -30,
   },
 });

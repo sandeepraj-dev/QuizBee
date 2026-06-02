@@ -121,6 +121,7 @@ xed .
 - If Metro caching causes issues:
 
 ```bash
+npx react-native start
 npm start -- --reset-cache
 ```
 

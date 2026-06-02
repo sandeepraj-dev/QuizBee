@@ -69,7 +69,7 @@ export default function AdminModulesScreen() {
       title: 'Students',
       description: 'Manage students',
       icon: 'people',
-      route: 'Students',
+      route: 'AddStudentToClassroom',
       colors: ['#14B8A6', '#2DD4BF'],
     },
     {
