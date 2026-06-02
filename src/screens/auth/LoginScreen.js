@@ -118,13 +118,8 @@ export default function LoginScreen() {
           <View style={styles.bottomRow}>
             <Text style={styles.bottomText}>Don’t have an account?</Text>
 
-            <TouchableOpacity>
-              <Text
-                style={styles.signupText}
-                onPress={() => navigation.navigate('RegisterScreen')}
-              >
-                Sign Up
-              </Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+              <Text>Create Account</Text>
             </TouchableOpacity>
           </View>
         </View>

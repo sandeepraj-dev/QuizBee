@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import DashboardCard from '../../components/DashboardCard';
 
 import { getDashboardAnalyticsAPI } from '../../api/analytics.api';
+import { useNavigation } from '@react-navigation/native';
 
 export default function AdminDashboard() {
   const [analytics, setAnalytics] = useState({});
@@ -23,7 +24,7 @@ export default function AdminDashboard() {
   useEffect(() => {
     loadData();
   }, []);
-
+  const navigation = useNavigation();
   const loadData = async () => {
     try {
       const response = await getDashboardAnalyticsAPI();
@@ -54,7 +55,7 @@ export default function AdminDashboard() {
             </View>
           </View>
 
-          <View style={styles.heroStats}>
+          {/* <View style={styles.heroStats}>
             <View style={styles.statBox}>
               <Text style={styles.statValue}>
                 {analytics.totalStudents || 0}
@@ -68,7 +69,7 @@ export default function AdminDashboard() {
 
               <Text style={styles.statLabel}>Exams</Text>
             </View>
-          </View>
+          </View> */}
         </LinearGradient>
 
         {/* SECTION TITLE */}
@@ -77,7 +78,9 @@ export default function AdminDashboard() {
           <Text style={styles.title}>Overview</Text>
 
           <TouchableOpacity>
-            <Text style={styles.viewAll}>View All</Text>
+            <Text style={styles.viewAll} onPress={() => navigation.navigate}>
+              View All
+            </Text>
           </TouchableOpacity>
         </View>
 
@@ -120,7 +123,7 @@ export default function AdminDashboard() {
         <View style={styles.quickGrid}>
           <TouchableOpacity style={styles.quickCard}>
             <Icon name="add-circle" size={30} color="#5B67F1" />
-
+            onPress={() => navigation.navigate('Modules')}
             <Text style={styles.quickText}>Create Exam</Text>
           </TouchableOpacity>
 
@@ -139,7 +142,12 @@ export default function AdminDashboard() {
           <TouchableOpacity style={styles.quickCard}>
             <Icon name="settings" size={30} color="#5B67F1" />
 
-            <Text style={styles.quickText}>Settings</Text>
+            <Text
+              style={styles.quickText}
+              onPress={() => navigation.navigate('Login')}
+            >
+              Settings
+            </Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -231,7 +239,10 @@ const styles = StyleSheet.create({
   },
 
   grid: {
-    paddingHorizontal: 20,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
   },
 
   quickGrid: {

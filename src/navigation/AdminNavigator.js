@@ -1,91 +1,91 @@
 import React from 'react';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import AdminModulesScreen from '../screens/admin/AdminModulesScreen';
 
-import Icon from 'react-native-vector-icons/Ionicons';
+import CreateClassroomScreen from '../screens/admin/CreateClassroomScreen';
+import ManageClassroomScreen from '../screens/admin/ManageClassroomScreen';
 
-import AnalyticsScreen from '../screens/admin/AdminDashboard';
-import SettingsScreen from '../screens/admin/SettingsScreen';
-import AdminDashboard from '../screens/admin/AdminDashboard';
+import CreateExamScreen from '../screens/admin/CreateExamScreen';
+import ManageExamScreen from '../screens/admin/ManageExamScreen';
 
-const Tab = createBottomTabNavigator();
+import CreateQuestionScreen from '../screens/admin/CreateQuestionScreen';
+import ManageQuestionScreen from '../screens/admin/ManageQuestionScreen';
+
+import StudentsScreen from '../screens/admin/StudentsScreen';
+import AttemptsScreen from '../screens/admin/AttemptsScreen';
+import ReportsScreen from '../screens/admin/ReportsScreen';
+import BottomNavigation from '../screens/admin/BottomNavigation';
+
+const Stack = createNativeStackNavigator();
 
 export default function AdminNavigator() {
   return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        headerShown: false,
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Dashboard"
+        component={BottomNavigation}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Modules"
+        component={AdminModulesScreen}
+        options={{ headerShown: false }}
+      />
 
-        tabBarShowLabel: true,
+      <Stack.Screen
+        name="CreateClassroom"
+        component={CreateClassroomScreen}
+        options={{ headerShown: false }}
+      />
 
-        tabBarActiveTintColor: '#4F46E5',
+      <Stack.Screen
+        name="ManageClassroom"
+        component={ManageClassroomScreen}
+        options={{ headerShown: false }}
+      />
 
-        tabBarInactiveTintColor: '#9CA3AF',
+      <Stack.Screen
+        name="CreateExam"
+        component={CreateExamScreen}
+        options={{ headerShown: false }}
+      />
 
-        tabBarStyle: {
-          position: 'absolute',
+      <Stack.Screen
+        name="ManageExam"
+        component={ManageExamScreen}
+        options={{ headerShown: false }}
+      />
 
-          left: 15,
+      <Stack.Screen
+        name="CreateQuestion"
+        component={CreateQuestionScreen}
+        options={{ headerShown: false }}
+      />
 
-          right: 15,
+      <Stack.Screen
+        name="ManageQuestion"
+        component={ManageQuestionScreen}
+        options={{ headerShown: false }}
+      />
 
-          bottom: 15,
+      <Stack.Screen
+        name="Students"
+        component={StudentsScreen}
+        options={{ headerShown: false }}
+      />
 
-          height: 75,
+      <Stack.Screen
+        name="Attempts"
+        component={AttemptsScreen}
+        options={{ headerShown: false }}
+      />
 
-          borderRadius: 24,
-
-          backgroundColor: '#FFFFFF',
-
-          borderTopWidth: 0,
-
-          elevation: 8,
-
-          shadowColor: '#000',
-
-          shadowOffset: {
-            width: 0,
-            height: 6,
-          },
-
-          shadowOpacity: 0.1,
-
-          shadowRadius: 10,
-
-          paddingBottom: 8,
-
-          paddingTop: 8,
-        },
-
-        tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: '600',
-        },
-
-        tabBarIcon: ({ focused, color }) => {
-          let iconName;
-
-          if (route.name === 'Dashboard') {
-            iconName = focused ? 'grid' : 'grid-outline';
-          }
-
-          if (route.name === 'Analytics') {
-            iconName = focused ? 'bar-chart' : 'bar-chart-outline';
-          }
-
-          if (route.name === 'Settings') {
-            iconName = focused ? 'settings' : 'settings-outline';
-          }
-
-          return <Icon name={iconName} size={24} color={color} />;
-        },
-      })}
-    >
-      <Tab.Screen name="Dashboard" component={AdminDashboard} />
-
-      <Tab.Screen name="Analytics" component={AnalyticsScreen} />
-
-      <Tab.Screen name="Settings" component={SettingsScreen} />
-    </Tab.Navigator>
+      <Stack.Screen
+        name="Reports"
+        component={ReportsScreen}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
   );
 }

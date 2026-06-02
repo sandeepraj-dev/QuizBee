@@ -58,7 +58,7 @@ export default function RegisterScreen() {
       Alert.alert('Success', 'Registration successful', [
         {
           text: 'OK',
-          onPress: () => navigation.navigate('Loginscreen'),
+          onPress: () => navigation.navigate('Login'),
         },
       ]);
     } catch (error) {
