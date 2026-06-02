@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import Toast from 'react-native-toast-message';
 import {
   SafeAreaView,
   ScrollView,
@@ -9,16 +9,80 @@ import {
   TouchableOpacity,
   StyleSheet,
   StatusBar,
+  Alert,
+  ActivityIndicator,
 } from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import API from './../../api/axios';
 export default function CreateClassroomScreen() {
   const [classroomName, setClassroomName] = useState('');
   const [description, setDescription] = useState('');
-  const [capacity, setCapacity] = useState('');
-  const [faculty, setFaculty] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [nameError, setNameError] = useState('');
+  const [descriptionError, setDescriptionError] = useState('');
+
+  const createClassroom = async () => {
+    let valid = true;
+
+    setNameError('');
+    setDescriptionError('');
+
+    if (!classroomName.trim()) {
+      setNameError('Classroom name is required');
+      valid = false;
+    }
+
+    if (!description.trim()) {
+      setDescriptionError('Description is required');
+      valid = false;
+    }
+    if (classroomName.trim().length < 3) {
+      setNameError('Classroom name must be at least 3 characters');
+      valid = false;
+    }
+
+    if (description.trim().length < 10) {
+      setDescriptionError('Description must be at least 10 characters');
+      valid = false;
+    }
+
+    if (!valid) {
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const response = await API.post('/classrooms', {
+        name: classroomName,
+        description,
+      });
+
+      Toast.show({
+        type: 'success',
+        text1: 'Success',
+        text2: 'Classroom created successfully',
+        position: 'bottom',
+      });
+      setClassroomName('');
+      setDescription('');
+
+      setNameError('');
+      setDescriptionError('');
+    } catch (error) {
+      console.log(error?.response?.data || error);
+
+      Alert.alert(
+        'Error',
+        error?.response?.data?.message || 'Failed to create classroom',
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -37,57 +101,62 @@ export default function CreateClassroomScreen() {
           </Text>
         </LinearGradient>
 
-        <View style={styles.statsRow}>
-          <View style={styles.statsCard}>
-            <Text style={styles.statsValue}>48</Text>
-            <Text style={styles.statsLabel}>Classrooms</Text>
-          </View>
-
-          <View style={styles.statsCard}>
-            <Text style={styles.statsValue}>1200</Text>
-            <Text style={styles.statsLabel}>Students</Text>
-          </View>
-        </View>
-
         <View style={styles.formCard}>
           <Text style={styles.formTitle}>Classroom Information</Text>
 
           <TextInput
-            style={styles.input}
+            style={[styles.input, nameError ? styles.errorInput : null]}
             placeholder="Classroom Name"
+            placeholderTextColor="#6b6f77"
             value={classroomName}
-            onChangeText={setClassroomName}
+            onChangeText={text => {
+              setClassroomName(text);
+
+              if (text.trim()) {
+                setNameError('');
+              }
+            }}
           />
 
+          {nameError ? <Text style={styles.errorText}>{nameError}</Text> : null}
+
           <TextInput
-            style={[styles.input, styles.multiline]}
+            style={[
+              styles.input,
+              styles.multiline,
+              descriptionError ? styles.errorInput : null,
+            ]}
+            placeholderTextColor="#6b6f77"
             placeholder="Description"
             multiline
             value={description}
-            onChangeText={setDescription}
+            onChangeText={text => {
+              setDescription(text);
+
+              if (text.trim()) {
+                setDescriptionError('');
+              }
+            }}
           />
 
-          <TextInput
-            style={styles.input}
-            placeholder="Capacity"
-            keyboardType="numeric"
-            value={capacity}
-            onChangeText={setCapacity}
-          />
+          {descriptionError ? (
+            <Text style={styles.errorText}>{descriptionError}</Text>
+          ) : null}
 
-          <TextInput
-            style={styles.input}
-            placeholder="Faculty Name"
-            value={faculty}
-            onChangeText={setFaculty}
-          />
-
-          <TouchableOpacity activeOpacity={0.8}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={createClassroom}
+            disabled={loading}
+          >
             <LinearGradient
               colors={['#4F46E5', '#7C3AED']}
               style={styles.button}
             >
-              <Text style={styles.buttonText}>Create Classroom</Text>
+              {loading ? (
+                <ActivityIndicator color="#FFF" />
+              ) : (
+                <Text style={styles.buttonText}>Create Classroom</Text>
+              )}
             </LinearGradient>
           </TouchableOpacity>
         </View>
@@ -132,34 +201,9 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
 
-  statsRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 20,
-  },
-
-  statsCard: {
-    width: '48%',
-    backgroundColor: '#FFF',
-    padding: 20,
-    borderRadius: 20,
-    elevation: 5,
-  },
-
-  statsValue: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#4F46E5',
-  },
-
-  statsLabel: {
-    color: '#6B7280',
-    marginTop: 5,
-  },
-
   formCard: {
     backgroundColor: '#FFF',
-    marginHorizontal: 20,
+    margin: 20,
     borderRadius: 25,
     padding: 20,
     elevation: 5,
@@ -172,6 +216,7 @@ const styles = StyleSheet.create({
   },
 
   input: {
+    color: '#111827',
     height: 55,
     backgroundColor: '#F3F4F6',
     borderRadius: 14,
@@ -197,5 +242,18 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontWeight: '700',
     fontSize: 16,
+  },
+  errorInput: {
+    borderWidth: 1,
+    borderColor: '#EF4444',
+  },
+
+  errorText: {
+    color: '#EF4444',
+    fontSize: 12,
+    marginTop: -10,
+    marginBottom: 12,
+    marginLeft: 5,
+    fontWeight: '500',
   },
 });

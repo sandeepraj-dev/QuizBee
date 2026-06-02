@@ -31,12 +31,68 @@ export default function RegisterScreen() {
   const [role, setRole] = useState('ADMIN');
 
   const [showPassword, setShowPassword] = useState(false);
+  const [phone, setPhone] = useState('');
+  const [fullNameError, setFullNameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [phoneError, setPhoneError] = useState('');
+  const [usernameError, setUsernameError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
+  const validateEmail = email => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
   const onRegister = async () => {
-    if (!fullName || !email || !username || !password) {
-      Alert.alert('Validation', 'Please fill all fields');
+    let valid = true;
+
+    setFullNameError('');
+    setEmailError('');
+    setPhoneError('');
+    setUsernameError('');
+    setPasswordError('');
+
+    if (!fullName.trim()) {
+      setFullNameError('Full name is required');
+      valid = false;
+    } else if (fullName.trim().length < 3) {
+      setFullNameError('Full name must be at least 3 characters');
+      valid = false;
+    }
+
+    if (!email.trim()) {
+      setEmailError('Email is required');
+      valid = false;
+    } else if (!validateEmail(email)) {
+      setEmailError('Enter a valid email address');
+      valid = false;
+    }
+
+    if (!phone.trim()) {
+      setPhoneError('Phone number is required');
+      valid = false;
+    } else if (!/^\d{10}$/.test(phone)) {
+      setPhoneError('Phone number must be exactly 10 digits');
+      valid = false;
+    }
+
+    if (!username.trim()) {
+      setUsernameError('Username is required');
+      valid = false;
+    } else if (username.trim().length < 4) {
+      setUsernameError('Username must be at least 4 characters');
+      valid = false;
+    }
+
+    if (!password) {
+      setPasswordError('Password is required');
+      valid = false;
+    } else if (password.length < 6) {
+      setPasswordError('Password must be at least 6 characters');
+      valid = false;
+    }
+
+    if (!valid) {
       return;
     }
 
@@ -113,10 +169,19 @@ export default function RegisterScreen() {
                 <AppInput
                   placeholder="Full Name"
                   value={fullName}
-                  onChangeText={setFullName}
-                  style={styles.inputBox}
+                  onChangeText={text => {
+                    setFullName(text);
+
+                    if (text.trim()) {
+                      setFullNameError('');
+                    }
+                  }}
+                  style={[styles.inputBox, fullNameError && styles.errorInput]}
                 />
               </View>
+              {fullNameError ? (
+                <Text style={styles.errorText}>{fullNameError}</Text>
+              ) : null}
 
               {/* Email */}
               <View style={styles.inputWrapper}>
@@ -130,10 +195,49 @@ export default function RegisterScreen() {
                 <AppInput
                   placeholder="Email Address"
                   value={email}
-                  onChangeText={setEmail}
-                  style={styles.inputBox}
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                  onChangeText={text => {
+                    setEmail(text);
+
+                    if (text.trim()) {
+                      setEmailError('');
+                    }
+                  }}
+                  style={[styles.inputBox, emailError && styles.errorInput]}
                 />
               </View>
+              {emailError ? (
+                <Text style={styles.errorText}>{emailError}</Text>
+              ) : null}
+              <View style={styles.inputWrapper}>
+                <Icon
+                  name="call-outline"
+                  size={20}
+                  color="#000"
+                  style={styles.inputIcon}
+                />
+
+                <AppInput
+                  placeholder="Phone Number"
+                  keyboardType="number-pad"
+                  value={phone}
+                  onChangeText={text => {
+                    const value = text.replace(/[^0-9]/g, '');
+
+                    setPhone(value);
+
+                    if (value) {
+                      setPhoneError('');
+                    }
+                  }}
+                  style={[styles.inputBox, phoneError && styles.errorInput]}
+                />
+              </View>
+
+              {phoneError ? (
+                <Text style={styles.errorText}>{phoneError}</Text>
+              ) : null}
 
               {/* Username */}
               <View style={styles.inputWrapper}>
@@ -147,10 +251,20 @@ export default function RegisterScreen() {
                 <AppInput
                   placeholder="Username"
                   value={username}
-                  onChangeText={setUsername}
-                  style={styles.inputBox}
+                  autoCapitalize="none"
+                  onChangeText={text => {
+                    setUsername(text);
+
+                    if (text.trim()) {
+                      setUsernameError('');
+                    }
+                  }}
+                  style={[styles.inputBox, usernameError && styles.errorInput]}
                 />
               </View>
+              {usernameError ? (
+                <Text style={styles.errorText}>{usernameError}</Text>
+              ) : null}
 
               {/* Password */}
               <View style={styles.inputWrapper}>
@@ -160,13 +274,19 @@ export default function RegisterScreen() {
                   color="#6B7280"
                   style={styles.inputIcon}
                 />
-
                 <AppInput
                   placeholder="Password"
                   secureTextEntry={!showPassword}
                   value={password}
-                  onChangeText={setPassword}
-                  style={styles.inputBox}
+                  textColor="#000"
+                  onChangeText={text => {
+                    setPassword(text);
+
+                    if (text) {
+                      setPasswordError('');
+                    }
+                  }}
+                  style={[styles.inputBox, passwordError && styles.errorInput]}
                 />
 
                 <TouchableOpacity
@@ -176,10 +296,13 @@ export default function RegisterScreen() {
                   <Icon
                     name={showPassword ? 'eye-outline' : 'eye-off-outline'}
                     size={20}
-                    color="#6B7280"
+                    color="#000"
                   />
                 </TouchableOpacity>
               </View>
+              {passwordError ? (
+                <Text style={styles.errorText}>{passwordError}</Text>
+              ) : null}
 
               {/* Role */}
               <View style={styles.roleContainer}>
@@ -386,5 +509,18 @@ const styles = StyleSheet.create({
   loginText: {
     color: '#4F46E5',
     fontWeight: 'bold',
+  },
+  errorInput: {
+    borderWidth: 1,
+    borderColor: '#EF4444',
+  },
+
+  errorText: {
+    color: '#EF4444',
+    fontSize: 12,
+    marginTop: -15,
+    marginBottom: 12,
+    marginLeft: 8,
+    fontWeight: '500',
   },
 });

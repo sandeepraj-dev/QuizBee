@@ -89,3 +89,5 @@
 106562	142776	8018065899354868	rnsvg_autolinked_build/CMakeFiles/react_codegen_rnsvg.dir/D_/QuizBee/node_modules/react-native-svg/android/build/generated/source/codegen/jni/react/renderer/components/rnsvg/Props.cpp.o	71707e461ebfebb1
 142777	143009	8018065902484827	D:/QuizBee/android/app/build/intermediates/cxx/RelWithDebInfo/465p3e3m/obj/arm64-v8a/libreact_codegen_rnsvg.so	54fa198b5de728b6
 143010	143366	8018065905764894	D:/QuizBee/android/app/build/intermediates/cxx/RelWithDebInfo/465p3e3m/obj/arm64-v8a/libappmodules.so	f7dde9047e7f7550
+24	172	0	D:/QuizBee/android/app/.cxx/RelWithDebInfo/465p3e3m/arm64-v8a/CMakeFiles/cmake.verify_globs	f26579024d419f02
+1	117	0	clean	a7599ba112d4aef9

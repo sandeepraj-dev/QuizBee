@@ -5,7 +5,7 @@ import AdminModulesScreen from '../screens/admin/AdminModulesScreen';
 
 import CreateClassroomScreen from '../screens/admin/CreateClassroomScreen';
 import ManageClassroomScreen from '../screens/admin/ManageClassroomScreen';
-
+import EditClassroomScreen from '../screens/admin/EditClassroomScreen';
 import CreateExamScreen from '../screens/admin/CreateExamScreen';
 import ManageExamScreen from '../screens/admin/ManageExamScreen';
 
@@ -32,13 +32,11 @@ export default function AdminNavigator() {
         component={AdminModulesScreen}
         options={{ headerShown: false }}
       />
-
       <Stack.Screen
         name="CreateClassroom"
         component={CreateClassroomScreen}
         options={{ headerShown: false }}
       />
-
       <Stack.Screen
         name="ManageClassroom"
         component={ManageClassroomScreen}
@@ -46,41 +44,40 @@ export default function AdminNavigator() {
       />
 
       <Stack.Screen
+        name="EditClassroom"
+        component={EditClassroomScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
         name="CreateExam"
         component={CreateExamScreen}
         options={{ headerShown: false }}
       />
-
       <Stack.Screen
         name="ManageExam"
         component={ManageExamScreen}
         options={{ headerShown: false }}
       />
-
       <Stack.Screen
         name="CreateQuestion"
         component={CreateQuestionScreen}
         options={{ headerShown: false }}
       />
-
       <Stack.Screen
         name="ManageQuestion"
         component={ManageQuestionScreen}
         options={{ headerShown: false }}
       />
-
       <Stack.Screen
         name="Students"
         component={StudentsScreen}
         options={{ headerShown: false }}
       />
-
       <Stack.Screen
         name="Attempts"
         component={AttemptsScreen}
         options={{ headerShown: false }}
       />
-
       <Stack.Screen
         name="Reports"
         component={ReportsScreen}

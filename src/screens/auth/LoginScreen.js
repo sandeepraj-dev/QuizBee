@@ -6,6 +6,7 @@ import {
   Alert,
   TouchableOpacity,
   StatusBar,
+  ActivityIndicator,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -21,22 +22,58 @@ export default function LoginScreen() {
   const [username, setUsername] = useState('admin');
   const [password, setPassword] = useState('123456');
   const [showPassword, setShowPassword] = useState(false);
+  const [usernameError, setUsernameError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const setAuth = authStore(state => state.setAuth);
   const navigation = useNavigation();
   const onLogin = async () => {
+    let valid = true;
+
+    setUsernameError('');
+    setPasswordError('');
+
+    if (!username.trim()) {
+      setUsernameError('Username is required');
+      valid = false;
+    }
+
+    if (!password.trim()) {
+      setPasswordError('Password is required');
+      valid = false;
+    }
+    if (username.trim().length < 3) {
+      setUsernameError('Username must be at least 3 characters');
+      valid = false;
+    }
+
+    if (password.length < 6) {
+      setPasswordError('Password must be at least 6 characters');
+      valid = false;
+    }
+    if (!valid) {
+      return;
+    }
+
     try {
+      setLoading(true);
+
       const response = await loginAPI({
-        username,
+        username: username.trim(),
         password,
       });
 
       setAuth(response.user, response.token);
     } catch (error) {
-      Alert.alert('Error', error?.response?.data?.message || 'Login failed');
+      Alert.alert(
+        'Login Failed',
+        error?.response?.data?.message || 'Invalid credentials',
+      );
+    } finally {
+      setLoading(false);
     }
   };
-
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor="#4F46E5" />
@@ -73,10 +110,20 @@ export default function LoginScreen() {
             <AppInput
               placeholder="Username"
               value={username}
-              onChangeText={setUsername}
-              style={styles.inputBox}
+              onChangeText={text => {
+                setUsername(text);
+
+                if (text.trim()) {
+                  setUsernameError('');
+                }
+              }}
+              style={[styles.inputBox, usernameError && styles.errorInput]}
             />
           </View>
+
+          {usernameError ? (
+            <Text style={styles.errorText}>{usernameError}</Text>
+          ) : null}
 
           <View style={styles.inputWrapper}>
             <Icon
@@ -90,9 +137,18 @@ export default function LoginScreen() {
               placeholder="Password"
               secureTextEntry={!showPassword}
               value={password}
-              color="#6B7280"
-              onChangeText={setPassword}
-              style={styles.inputBox}
+              onChangeText={text => {
+                setPassword(text);
+
+                if (text.trim()) {
+                  setPasswordError('');
+                }
+              }}
+              style={[
+                styles.inputBox,
+                styles.passwordInput,
+                passwordError && styles.errorInput,
+              ]}
             />
 
             <TouchableOpacity
@@ -107,12 +163,22 @@ export default function LoginScreen() {
             </TouchableOpacity>
           </View>
 
+          {passwordError ? (
+            <Text style={styles.errorText}>{passwordError}</Text>
+          ) : null}
+
           <TouchableOpacity style={styles.forgotContainer}>
             <Text style={styles.forgotText}>Forgot Password?</Text>
           </TouchableOpacity>
 
           <View style={styles.buttonContainer}>
-            <AppButton title="Login" onPress={onLogin} />
+            <AppButton
+              title={loading ? 'Signing In...' : 'Login'}
+              onPress={onLogin}
+              disabled={loading}
+            >
+              {loading ? <ActivityIndicator color="#FFF" /> : 'Login'}
+            </AppButton>
           </View>
 
           <View style={styles.bottomRow}>
@@ -231,5 +297,21 @@ const styles = StyleSheet.create({
     color: '#4F46E5',
     fontWeight: 'bold',
     fontSize: 15,
+  },
+  passwordInput: {
+    color: '#000',
+  },
+  errorInput: {
+    borderWidth: 1,
+    borderColor: '#EF4444',
+  },
+
+  errorText: {
+    color: '#EF4444',
+    fontSize: 12,
+    marginTop: -12,
+    marginBottom: 12,
+    marginLeft: 8,
+    fontWeight: '500',
   },
 });

@@ -7,6 +7,7 @@ import {
   View,
   TouchableOpacity,
   StatusBar,
+  ActivityIndicator,
 } from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
@@ -20,18 +21,22 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function AdminDashboard() {
   const [analytics, setAnalytics] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     loadData();
   }, []);
   const navigation = useNavigation();
   const loadData = async () => {
+    setLoading(true);
     try {
       const response = await getDashboardAnalyticsAPI();
 
       setAnalytics(response.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -41,12 +46,10 @@ export default function AdminDashboard() {
 
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         {/* HERO SECTION */}
-
         <LinearGradient colors={['#5B67F1', '#7B61FF']} style={styles.heroCard}>
           <View style={styles.heroTop}>
             <View>
               <Text style={styles.welcomeText}>Welcome Back 👋</Text>
-
               <Text style={styles.adminText}>Admin Dashboard</Text>
             </View>
 
@@ -54,107 +57,115 @@ export default function AdminDashboard() {
               <Icon name="person" size={26} color="#2b62ed" />
             </View>
           </View>
-
-          {/* <View style={styles.heroStats}>
-            <View style={styles.statBox}>
-              <Text style={styles.statValue}>
-                {analytics.totalStudents || 0}
-              </Text>
-
-              <Text style={styles.statLabel}>Students</Text>
-            </View>
-
-            <View style={styles.statBox}>
-              <Text style={styles.statValue}>{analytics.totalExams || 0}</Text>
-
-              <Text style={styles.statLabel}>Exams</Text>
-            </View>
-          </View> */}
         </LinearGradient>
 
-        {/* SECTION TITLE */}
+        {loading ? (
+          <View style={styles.loaderContainer}>
+            <ActivityIndicator size="large" color="#4F46E5" />
+            <Text style={styles.loadingText}>Loading Dashboard...</Text>
+          </View>
+        ) : (
+          <>
+            {/* OVERVIEW */}
+            <View style={styles.sectionRow}>
+              <Text style={styles.title}>Overview</Text>
 
-        <View style={styles.sectionRow}>
-          <Text style={styles.title}>Overview</Text>
+              <TouchableOpacity onPress={() => navigation.navigate('Modules')}>
+                <Text style={styles.viewAll}>View All</Text>
+              </TouchableOpacity>
+            </View>
 
-          <TouchableOpacity>
-            <Text style={styles.viewAll} onPress={() => navigation.navigate}>
-              View All
-            </Text>
-          </TouchableOpacity>
-        </View>
+            {/* ANALYTICS GRID */}
+            <View style={styles.grid}>
+              <TouchableOpacity
+                style={styles.cardWrapper}
+                activeOpacity={0.9}
+                onPress={() => navigation.navigate('ManageStudents')}
+              >
+                <DashboardCard
+                  title="Students"
+                  value={analytics.totalStudents || 0}
+                  icon="people"
+                  colors={['#4F46E5', '#6366F1']}
+                />
+              </TouchableOpacity>
 
-        {/* ANALYTICS GRID */}
+              <TouchableOpacity
+                style={styles.cardWrapper}
+                activeOpacity={0.9}
+                onPress={() => navigation.navigate('ManageClassroom')}
+              >
+                <DashboardCard
+                  title="Classrooms"
+                  value={analytics.totalClassrooms || 0}
+                  icon="school"
+                  colors={['#0EA5E9', '#38BDF8']}
+                />
+              </TouchableOpacity>
 
-        <View style={styles.grid}>
-          <DashboardCard
-            title="Students"
-            value={analytics.totalStudents || 0}
-            icon="people"
-            colors={['#4F46E5', '#6366F1']}
-          />
+              <TouchableOpacity
+                style={styles.cardWrapper}
+                activeOpacity={0.9}
+                onPress={() => navigation.navigate('ManageExams')}
+              >
+                <DashboardCard
+                  title="Exams"
+                  value={analytics.totalExams || 0}
+                  icon="document-text"
+                  colors={['#10B981', '#34D399']}
+                />
+              </TouchableOpacity>
 
-          <DashboardCard
-            title="Classrooms"
-            value={analytics.totalClassrooms || 0}
-            icon="school"
-            colors={['#0EA5E9', '#38BDF8']}
-          />
+              <TouchableOpacity
+                style={styles.cardWrapper}
+                activeOpacity={0.9}
+                onPress={() => navigation.navigate('ManageAttempts')}
+              >
+                <DashboardCard
+                  title="Attempts"
+                  value={analytics.totalAttempts || 0}
+                  icon="analytics"
+                  colors={['#F59E0B', '#FBBF24']}
+                />
+              </TouchableOpacity>
+            </View>
 
-          <DashboardCard
-            title="Exams"
-            value={analytics.totalExams || 0}
-            icon="document-text"
-            colors={['#10B981', '#34D399']}
-          />
+            {/* QUICK ACTIONS */}
+            <View style={styles.sectionRow}>
+              <Text style={styles.title}>Quick Actions</Text>
 
-          <DashboardCard
-            title="Attempts"
-            value={analytics.totalAttempts || 0}
-            icon="analytics"
-            colors={['#F59E0B', '#FBBF24']}
-          />
-        </View>
+              <TouchableOpacity onPress={() => navigation.navigate('Modules')}>
+                <Text style={styles.viewAll}>View All</Text>
+              </TouchableOpacity>
+            </View>
 
-        {/* QUICK ACTIONS */}
+            <View style={styles.quickGrid}>
+              <TouchableOpacity style={styles.quickCard}>
+                <Icon name="add-circle" size={30} color="#5B67F1" />
+                <Text style={styles.quickText}>Create Exam</Text>
+              </TouchableOpacity>
 
-        <Text style={styles.title}>Quick Actions</Text>
+              <TouchableOpacity style={styles.quickCard}>
+                <Icon name="people" size={30} color="#5B67F1" />
+                <Text style={styles.quickText}>Add Student</Text>
+              </TouchableOpacity>
 
-        <View style={styles.quickGrid}>
-          <TouchableOpacity style={styles.quickCard}>
-            <Icon name="add-circle" size={30} color="#5B67F1" />
-            onPress={() => navigation.navigate('Modules')}
-            <Text style={styles.quickText}>Create Exam</Text>
-          </TouchableOpacity>
+              <TouchableOpacity style={styles.quickCard}>
+                <Icon name="bar-chart" size={30} color="#5B67F1" />
+                <Text style={styles.quickText}>Analytics</Text>
+              </TouchableOpacity>
 
-          <TouchableOpacity style={styles.quickCard}>
-            <Icon name="people" size={30} color="#5B67F1" />
-
-            <Text style={styles.quickText}>Add Student</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.quickCard}>
-            <Icon name="bar-chart" size={30} color="#5B67F1" />
-
-            <Text style={styles.quickText}>Analytics</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.quickCard}>
-            <Icon name="settings" size={30} color="#5B67F1" />
-
-            <Text
-              style={styles.quickText}
-              onPress={() => navigation.navigate('Login')}
-            >
-              Settings
-            </Text>
-          </TouchableOpacity>
-        </View>
+              <TouchableOpacity style={styles.quickCard}>
+                <Icon name="settings" size={30} color="#5B67F1" />
+                <Text style={styles.quickText}>Settings</Text>
+              </TouchableOpacity>
+            </View>
+          </>
+        )}
       </ScrollView>
     </>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -228,7 +239,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '800',
     color: '#111827',
-    marginHorizontal: 20,
+    marginHorizontal: 10,
     marginBottom: 18,
     marginTop: 10,
   },
@@ -280,5 +291,23 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     color: '#111827',
+  },
+  cardWrapper: {
+    width: '48%',
+    marginBottom: 16,
+  },
+  loaderContainer: {
+    flex: 1,
+    marginTop: '50%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 80,
+  },
+
+  loadingText: {
+    marginTop: 10,
+    fontSize: 15,
+    color: '#64748B',
+    fontWeight: '600',
   },
 });
