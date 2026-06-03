@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import {
   SafeAreaView,
   View,
@@ -28,9 +29,11 @@ export default function ManageExamScreen() {
   const [search, setSearch] = useState('');
   const [exams, setExams] = useState([]);
 
-  useEffect(() => {
-    loadExams();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      loadExams();
+    }, []),
+  );
 
   const loadExams = async () => {
     try {
@@ -89,9 +92,10 @@ export default function ManageExamScreen() {
     ]);
   };
 
-  const handleEdit = exam => {
+  const handleEdit = item => {
     navigation.navigate('CreateExam', {
-      exam,
+      isEdit: true,
+      exam: item,
     });
   };
 
@@ -217,7 +221,7 @@ export default function ManageExamScreen() {
 
           <TouchableOpacity
             style={styles.headerButton}
-            onPress={() => navigation.navigate('CreateExamScreen')}
+            onPress={() => navigation.navigate('CreateExam')}
           >
             <Icon name="add" size={28} color="#FFF" />
           </TouchableOpacity>
@@ -234,7 +238,7 @@ export default function ManageExamScreen() {
         </Text>
       </LinearGradient>
 
-      <View style={styles.statsRow}>
+      {/* <View style={styles.statsRow}>
         <View style={styles.statCard}>
           <Text style={styles.statNumber}>{totalExams}</Text>
           <Text style={styles.statLabel}>Total</Text>
@@ -249,13 +253,14 @@ export default function ManageExamScreen() {
           <Text style={styles.statNumber}>{draftCount}</Text>
           <Text style={styles.statLabel}>Draft</Text>
         </View>
-      </View>
+      </View> */}
 
       <View style={styles.searchBox}>
         <Icon name="search" size={20} color="#9CA3AF" />
 
         <TextInput
           placeholder="Search exams..."
+          placeholderTextColor="#9CA3AF"
           value={search}
           onChangeText={setSearch}
           style={styles.searchInput}

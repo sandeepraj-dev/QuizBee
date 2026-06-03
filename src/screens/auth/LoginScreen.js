@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Alert,
   TouchableOpacity,
   StatusBar,
   ActivityIndicator,
@@ -17,6 +16,7 @@ import AppButton from '../../components/AppButton';
 
 import { loginAPI } from '../../api/auth.api';
 import { authStore } from '../../store/authStore';
+import Toast from 'react-native-toast-message';
 
 export default function LoginScreen() {
   const [username, setUsername] = useState('admin');
@@ -66,10 +66,11 @@ export default function LoginScreen() {
 
       setAuth(response.user, response.token);
     } catch (error) {
-      Alert.alert(
-        'Login Failed',
-        error?.response?.data?.message || 'Invalid credentials',
-      );
+      Toast.show({
+        type: 'error',
+        text1: 'Login Failed',
+        text2: error?.response?.data?.message || error.message,
+      });
     } finally {
       setLoading(false);
     }

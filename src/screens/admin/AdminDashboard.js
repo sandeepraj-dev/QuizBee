@@ -50,7 +50,7 @@ export default function AdminDashboard() {
           <View style={styles.heroTop}>
             <View>
               <Text style={styles.welcomeText}>Welcome Back 👋</Text>
-              <Text style={styles.adminText}>Admin Dashboard</Text>
+              <Text style={styles.adminText}>Admin</Text>
             </View>
 
             <View style={styles.profileCircle}>
@@ -80,7 +80,7 @@ export default function AdminDashboard() {
               <TouchableOpacity
                 style={styles.cardWrapper}
                 activeOpacity={0.9}
-                onPress={() => navigation.navigate('ManageStudents')}
+                onPress={() => navigation.navigate('StudentList')}
               >
                 <DashboardCard
                   title="Students"

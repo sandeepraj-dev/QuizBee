@@ -140,13 +140,7 @@ export default function ManageClassroomScreen() {
             <Text style={styles.headerTitle}>Classrooms</Text>
           </View>
 
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={styles.addButton}
-            onPress={() => navigation.navigate('CreateClassroom')}
-          >
-            <Icon name="add" size={22} color="#FFF" />
-          </TouchableOpacity>
+          {/* s */}
         </View>
 
         <View style={styles.statsCard}>

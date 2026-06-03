@@ -16,36 +16,16 @@ const API = axios.create({
 API.interceptors.request.use(
   async config => {
     try {
-      console.log('\n========== API REQUEST ==========');
-
       const token = authStore.getState().token;
-
-      console.log('BASE URL =>', BASE_URL);
-      console.log('FULL URL =>', `${config.baseURL}${config.url}`);
-      console.log('METHOD =>', config.method?.toUpperCase());
-
-      console.log('RAW TOKEN =>', token);
 
       if (token) {
         // Remove unwanted quotes/spaces
         const cleanToken = token.replace(/"/g, '').trim();
 
-        console.log('CLEAN TOKEN =>', cleanToken);
-
         config.headers.Authorization = `Bearer ${cleanToken}`;
-
-        console.log('AUTH HEADER =>', config.headers.Authorization);
       } else {
         console.log('❌ NO TOKEN FOUND');
       }
-
-      console.log('REQUEST HEADERS =>', config.headers);
-
-      if (config.data) {
-        console.log('REQUEST BODY =>', config.data);
-      }
-
-      console.log('=================================\n');
 
       return config;
     } catch (error) {
@@ -66,19 +46,9 @@ API.interceptors.request.use(
  */
 API.interceptors.response.use(
   response => {
-    console.log('\n========== API RESPONSE ==========');
-
-    console.log('STATUS =>', response.status);
-    console.log('URL =>', response.config.url);
-    console.log('RESPONSE DATA =>', response.data);
-
-    console.log('==================================\n');
-
     return response;
   },
   error => {
-    console.log('\n========== API ERROR ==========');
-
     console.log('ERROR MESSAGE =>', error.message);
 
     if (error.config) {

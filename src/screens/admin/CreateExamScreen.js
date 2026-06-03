@@ -43,8 +43,9 @@ export default function CreateExamScreen() {
   useEffect(() => {
     loadClassrooms();
   }, []);
+
   useEffect(() => {
-    if (isEdit && examData) {
+    if (isEdit && examData && classrooms.length > 0) {
       setSelectedClassroom(examData?.classroomId?._id || examData?.classroomId);
 
       setTitle(examData?.title || '');
@@ -52,7 +53,7 @@ export default function CreateExamScreen() {
       setDuration(String(examData?.duration || ''));
       setTotalMarks(String(examData?.totalMarks || ''));
     }
-  }, [examData]);
+  }, [examData, classrooms]);
 
   const loadClassrooms = async () => {
     try {
@@ -208,6 +209,7 @@ export default function CreateExamScreen() {
           <TextInput
             style={[styles.input, errors.title && styles.errorBorder]}
             placeholder="React Basics Test"
+            placeholderTextColor="#9CA3AF"
             value={title}
             onChangeText={setTitle}
           />
@@ -224,6 +226,7 @@ export default function CreateExamScreen() {
               errors.description && styles.errorBorder,
             ]}
             placeholder="React MCQ Test"
+            placeholderTextColor="#9CA3AF"
             value={description}
             onChangeText={setDescription}
           />
@@ -238,6 +241,7 @@ export default function CreateExamScreen() {
             keyboardType="numeric"
             style={[styles.input, errors.duration && styles.errorBorder]}
             placeholder="30"
+            placeholderTextColor="#9CA3AF"
             value={duration}
             onChangeText={setDuration}
           />
@@ -252,6 +256,7 @@ export default function CreateExamScreen() {
             keyboardType="numeric"
             style={[styles.input, errors.totalMarks && styles.errorBorder]}
             placeholder="20"
+            placeholderTextColor="#9CA3AF"
             value={totalMarks}
             onChangeText={setTotalMarks}
           />
