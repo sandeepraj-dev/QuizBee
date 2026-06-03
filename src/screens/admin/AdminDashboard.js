@@ -140,12 +140,18 @@ export default function AdminDashboard() {
             </View>
 
             <View style={styles.quickGrid}>
-              <TouchableOpacity style={styles.quickCard}>
+              <TouchableOpacity
+                style={styles.quickCard}
+                onPress={() => navigation.navigate('CreateExam')}
+              >
                 <Icon name="add-circle" size={30} color="#5B67F1" />
                 <Text style={styles.quickText}>Create Exam</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.quickCard}>
+              <TouchableOpacity
+                style={styles.quickCard}
+                onPress={() => navigation.navigate('AddStudentToClassroom')}
+              >
                 <Icon name="people" size={30} color="#5B67F1" />
                 <Text style={styles.quickText}>Add Student</Text>
               </TouchableOpacity>
@@ -155,7 +161,10 @@ export default function AdminDashboard() {
                 <Text style={styles.quickText}>Analytics</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.quickCard}>
+              <TouchableOpacity
+                style={styles.quickCard}
+                onPress={() => navigation.navigate('Settings')}
+              >
                 <Icon name="settings" size={30} color="#5B67F1" />
                 <Text style={styles.quickText}>Settings</Text>
               </TouchableOpacity>

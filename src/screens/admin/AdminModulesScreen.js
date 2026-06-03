@@ -20,19 +20,26 @@ export default function AdminModulesScreen() {
   const [search, setSearch] = useState('');
 
   const academicModules = [
-    {
-      title: 'Create Classroom',
-      description: 'Create new classrooms',
-      icon: 'school',
-      route: 'CreateClassroom',
-      colors: ['#4F46E5', '#6366F1'],
-    },
+    // {
+    //   title: 'Create Classroom',
+    //   description: 'Create new classrooms',
+    //   icon: 'school',
+    //   route: 'CreateClassroom',
+    //   colors: ['#4F46E5', '#6366F1'],
+    // },
     {
       title: 'Manage Classroom',
       description: 'Manage all classrooms',
       icon: 'business',
       route: 'ManageClassroom',
       colors: ['#06B6D4', '#0EA5E9'],
+    },
+    {
+      title: 'Students in Classroom',
+      description: 'View students in each class',
+      icon: 'people',
+      route: 'ClassroomStudents',
+      colors: ['#14B8A6', '#2DD4BF'],
     },
     {
       title: 'Create Exam',
@@ -219,6 +226,7 @@ const styles = StyleSheet.create({
   },
 
   headerTitle: {
+    padding: 5,
     fontSize: 30,
     fontWeight: 'bold',
     color: '#FFF',
@@ -226,6 +234,7 @@ const styles = StyleSheet.create({
 
   headerSubtitle: {
     marginTop: 8,
+    marginLeft: '20%',
     color: '#E0E7FF',
     fontSize: 14,
     lineHeight: 22,
@@ -294,8 +303,8 @@ const styles = StyleSheet.create({
   },
 
   backButton: {
-    width: 40,
-    height: 40,
+    width: 50,
+    height: 50,
     borderRadius: 20,
     backgroundColor: 'rgba(255,255,255,0.15)',
     justifyContent: 'center',

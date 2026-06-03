@@ -175,13 +175,6 @@ export default function AddStudentToClassroomScreen() {
       </TouchableOpacity>
     );
   };
-  if (loading) {
-    return (
-      <View style={styles.loader}>
-        <ActivityIndicator size="large" color="#4F46E5" />
-      </View>
-    );
-  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -212,32 +205,47 @@ export default function AddStudentToClassroomScreen() {
 
         <Icon name="chevron-down" size={22} color="#4F46E5" />
       </TouchableOpacity>
-
+      {/* 
       <View style={styles.countCard}>
         <Text style={styles.countNumber}>{selectedStudents.length}</Text>
 
         <Text style={styles.countText}>Students Selected</Text>
-      </View>
+      </View> */}
 
       <View style={styles.searchBox}>
         <Icon name="search" size={20} color="#94A3B8" />
 
         <TextInput
           placeholder="Search students..."
+          placeholderTextColor="#94A3B8"
           value={search}
           onChangeText={setSearch}
           style={{ flex: 1 }}
         />
       </View>
-
-      <FlatList
-        data={filteredStudents}
-        renderItem={renderStudent}
-        keyExtractor={item => item._id}
-        contentContainerStyle={{
-          paddingBottom: 100,
-        }}
-      />
+      <View style={{ flex: 1 }}>
+        {loading ? (
+          <View style={styles.listLoader}>
+            <ActivityIndicator size="large" color="#4F46E5" />
+            <Text style={styles.loadingText}>Loading Students...</Text>
+          </View>
+        ) : (
+          <FlatList
+            data={filteredStudents}
+            renderItem={renderStudent}
+            keyExtractor={item => item._id}
+            contentContainerStyle={{
+              paddingBottom: 100,
+            }}
+            ListEmptyComponent={() => (
+              <View style={styles.emptyContainer}>
+                <Icon name="people-outline" size={70} color="#CBD5E1" />
+                <Text style={styles.emptyText}>No Students Found</Text>
+              </View>
+            )}
+          />
+        )}
+      </View>
 
       <TouchableOpacity style={styles.submitBtn} onPress={submit}>
         <LinearGradient
@@ -279,6 +287,28 @@ export default function AddStudentToClassroomScreen() {
   );
 }
 const styles = StyleSheet.create({
+  listLoader: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  loadingText: {
+    marginTop: 10,
+    color: '#64748B',
+    fontSize: 15,
+  },
+
+  emptyContainer: {
+    marginTop: 60,
+    alignItems: 'center',
+  },
+
+  emptyText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: '#64748B',
+  },
   container: {
     flex: 1,
     backgroundColor: '#F8FAFC',
