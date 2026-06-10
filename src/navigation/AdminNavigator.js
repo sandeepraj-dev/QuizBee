@@ -13,14 +13,13 @@ import CreateQuestionScreen from '../screens/admin/CreateQuestionScreen';
 import ManageQuestionScreen from '../screens/admin/ManageQuestionScreen';
 
 import StudentsScreen from '../screens/admin/StudentsScreen';
-import AttemptsScreen from '../screens/admin/AttemptsScreen';
 import ReportsScreen from '../screens/admin/ReportsScreen';
 import BottomNavigation from '../screens/admin/BottomNavigation';
 import AddStudentToClassroomScreen from '../screens/admin/AddStudentToClassroomScreen';
 import ClassroomStudentsScreen from '../screens/admin/ClassroomStudentsScreen';
 import StudentListScreen from '../screens/admin/StudentListScreen';
 import StudentDashboard from '../screens/student/StudentDashboard';
-
+import ResultDetailsScreen from '../screens/student/ResultDetailsScreen';
 const Stack = createNativeStackNavigator();
 
 export default function AdminNavigator() {
@@ -83,11 +82,6 @@ export default function AdminNavigator() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Attempts"
-        component={AttemptsScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
         name="Reports"
         component={ReportsScreen}
         options={{ headerShown: false }}
@@ -105,6 +99,11 @@ export default function AdminNavigator() {
       <Stack.Screen
         name="StudentDashboard"
         component={StudentDashboard}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ResultScreen"
+        component={ResultDetailsScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

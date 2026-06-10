@@ -286,7 +286,11 @@ export default function RegisterScreen() {
                       setPasswordError('');
                     }
                   }}
-                  style={[styles.inputBox, passwordError && styles.errorInput]}
+                  style={[
+                    styles.inputBox,
+                    { color: '#000' },
+                    passwordError && styles.errorInput,
+                  ]}
                 />
 
                 <TouchableOpacity

@@ -218,7 +218,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "appmodules::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-appmodules-RelWithDebInfo-7ad3b84e8fab320f56af.json",
+					"jsonFile" : "target-appmodules-RelWithDebInfo-4fdb44bb4381ffafcae7.json",
 					"name" : "appmodules",
 					"projectIndex" : 0
 				},
@@ -246,7 +246,7 @@
 				{
 					"directoryIndex" : 3,
 					"id" : "react_codegen_rngesturehandler_codegen::@39f233abcd2c728bc6ec",
-					"jsonFile" : "target-react_codegen_rngesturehandler_codegen-RelWithDebInfo-f6c824e2719137610cb9.json",
+					"jsonFile" : "target-react_codegen_rngesturehandler_codegen-RelWithDebInfo-844b1109a414c2f9cf66.json",
 					"name" : "react_codegen_rngesturehandler_codegen",
 					"projectIndex" : 1
 				},
@@ -260,14 +260,14 @@
 				{
 					"directoryIndex" : 6,
 					"id" : "react_codegen_rnscreens::@25bcbd507e98d3a854ad",
-					"jsonFile" : "target-react_codegen_rnscreens-RelWithDebInfo-fa54d97ca074e9ae4339.json",
+					"jsonFile" : "target-react_codegen_rnscreens-RelWithDebInfo-51bc02800f38d26f3157.json",
 					"name" : "react_codegen_rnscreens",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 7,
 					"id" : "react_codegen_rnsvg::@4f40eb209d0c0b4a3b65",
-					"jsonFile" : "target-react_codegen_rnsvg-RelWithDebInfo-eba2d4f185415e612cb4.json",
+					"jsonFile" : "target-react_codegen_rnsvg-RelWithDebInfo-de07fdba3685445a4bd2.json",
 					"name" : "react_codegen_rnsvg",
 					"projectIndex" : 0
 				},
@@ -281,7 +281,7 @@
 				{
 					"directoryIndex" : 5,
 					"id" : "react_codegen_safeareacontext::@7984cd80db47aa7b952a",
-					"jsonFile" : "target-react_codegen_safeareacontext-RelWithDebInfo-6be4c9825f51eda1194e.json",
+					"jsonFile" : "target-react_codegen_safeareacontext-RelWithDebInfo-910e0765862cd35a9b11.json",
 					"name" : "react_codegen_safeareacontext",
 					"projectIndex" : 0
 				}
@@ -291,7 +291,7 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "D:/QuizBee/android/app/.cxx/RelWithDebInfo/465p3e3m/x86",
+		"build" : "D:/QuizBee/android/app/.cxx/RelWithDebInfo/465p3e3m/x86_64",
 		"source" : "D:/QuizBee/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup"
 	},
 	"version" : 

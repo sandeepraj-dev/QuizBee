@@ -1,6 +1,6 @@
 # ninja log v5
 26319	27852	8022083688516920	D:/QuizBee/android/app/build/intermediates/cxx/Debug/2u5w5e4f/obj/x86_64/libreact_codegen_rngesturehandler_codegen.so	660e0ddcbadd4149
-2	34	0	D:/QuizBee/android/app/.cxx/Debug/2u5w5e4f/x86_64/CMakeFiles/cmake.verify_globs	e7d62572da581ecc
+2	61	0	D:/QuizBee/android/app/.cxx/Debug/2u5w5e4f/x86_64/CMakeFiles/cmake.verify_globs	e7d62572da581ecc
 51802	58276	8017697031178938	rnscreens_autolinked_build/CMakeFiles/react_codegen_rnscreens.dir/6d14b1f14abedb81b755a85ca36f24a7/android/build/generated/source/codegen/jni/react/renderer/components/rnscreens/States.cpp.o	bcd97d3d000d8ded
 58	5011	8022083461106936	AsyncStorageSpec_autolinked_build/CMakeFiles/react_codegen_AsyncStorageSpec.dir/react/renderer/components/AsyncStorageSpec/States.cpp.o	7e9258b4e175d9f9
 51722	69073	8017697138412713	rnscreens_autolinked_build/CMakeFiles/react_codegen_rnscreens.dir/6d14b1f14abedb81b755a85ca36f24a7/android/build/generated/source/codegen/jni/react/renderer/components/rnscreens/EventEmitters.cpp.o	7e28184f37277180
@@ -125,4 +125,4 @@
 64528	78853	8022084200215057	rnsvg_autolinked_build/CMakeFiles/react_codegen_rnsvg.dir/rnsvg.cpp.o	fa5d274d89b7b806
 88557	88818	8022084299915044	D:/QuizBee/android/app/build/intermediates/cxx/Debug/2u5w5e4f/obj/x86_64/libreact_codegen_rnsvg.so	ed435f6882580187
 1	57	0	clean	a7599ba112d4aef9
-2	37	0	D:/QuizBee/android/app/.cxx/Debug/2u5w5e4f/x86_64/CMakeFiles/cmake.verify_globs	e7d62572da581ecc
+2	53	0	D:/QuizBee/android/app/.cxx/Debug/2u5w5e4f/x86_64/CMakeFiles/cmake.verify_globs	e7d62572da581ecc

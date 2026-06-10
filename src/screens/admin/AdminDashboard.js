@@ -119,7 +119,7 @@ export default function AdminDashboard() {
               <TouchableOpacity
                 style={styles.cardWrapper}
                 activeOpacity={0.9}
-                onPress={() => navigation.navigate('ManageAttempts')}
+                onPress={() => navigation.navigate('ResultScreen')}
               >
                 <DashboardCard
                   title="Attempts"

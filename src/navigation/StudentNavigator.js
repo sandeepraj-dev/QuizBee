@@ -6,7 +6,7 @@ import SelectExamScreen from '../screens/student/SelectExamScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AttemptExamScreen from '../screens/student/AttemptExamScreen';
 import ExamResultScreen from '../screens/student/ExamResultScreen';
-
+import ResultDetailsScreen from '../screens/student/ResultDetailsScreen';
 const Stack = createNativeStackNavigator();
 
 export default function StudentNavigator() {
@@ -39,6 +39,11 @@ export default function StudentNavigator() {
       <Stack.Screen
         name="ExamResultScreen"
         component={ExamResultScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ResultScreen"
+        component={ResultDetailsScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

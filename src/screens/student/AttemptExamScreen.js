@@ -8,7 +8,6 @@ import {
   StyleSheet,
   ActivityIndicator,
   StatusBar,
-  Alert,
   ScrollView,
   Modal,
 } from 'react-native';
@@ -43,6 +42,8 @@ export default function AttemptExamScreen() {
   const [remainingTime, setRemainingTime] = useState(0);
 
   const [showSubmitModal, setShowSubmitModal] = useState(false);
+
+  const [showExitModal, setShowExitModal] = useState(false);
 
   const timerRef = useRef(null);
 
@@ -128,42 +129,6 @@ export default function AttemptExamScreen() {
 
     await submitExam();
   };
-
-  /*
-  =====================================
-  PREVENT BACK PRESS
-  =====================================
-  */
-
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('beforeRemove', e => {
-      if (submittedRef.current) {
-        return;
-      }
-
-      e.preventDefault();
-
-      Alert.alert(
-        'Exam In Progress',
-        'Leaving this page will end your attempt.',
-        [
-          {
-            text: 'Continue Exam',
-            style: 'cancel',
-          },
-          {
-            text: 'Submit Exam',
-            style: 'destructive',
-            onPress: () => {
-              setShowSubmitModal(true);
-            },
-          },
-        ],
-      );
-    });
-
-    return unsubscribe;
-  }, [navigation]);
 
   /*
   =====================================
@@ -316,11 +281,12 @@ export default function AttemptExamScreen() {
               <Icon name="document-text" size={34} color="#FFF" />
             </View>
 
-            <View style={styles.timerCard}>
-              <Icon name="time-outline" size={18} color="#FFF" />
-
-              <Text style={styles.timerText}>{formatTime(remainingTime)}</Text>
-            </View>
+            <TouchableOpacity
+              style={styles.exitButton}
+              onPress={() => setShowExitModal(true)}
+            >
+              <Icon name="close-circle" size={28} color="#FFF" />
+            </TouchableOpacity>
           </View>
 
           <Text style={styles.examTitle}>{exam?.title}</Text>
@@ -628,6 +594,64 @@ export default function AttemptExamScreen() {
           </View>
         </View>
       )}
+      <Modal transparent visible={showExitModal} animationType="slide">
+        <View style={styles.modalOverlay}>
+          <View style={styles.exitModal}>
+            <View style={styles.exitIconWrapper}>
+              <Icon name="warning" size={55} color="#F59E0B" />
+            </View>
+
+            <Text style={styles.exitTitle}>Exit Exam?</Text>
+
+            <Text style={styles.exitMessage}>
+              Your exam is currently in progress.
+            </Text>
+
+            <Text style={styles.exitSubMessage}>
+              You can either continue the exam or submit it now.
+            </Text>
+
+            <View style={styles.exitStatsRow}>
+              <View style={styles.exitStatCard}>
+                <Text style={styles.exitStatValue}>{answers.length}</Text>
+
+                <Text style={styles.exitStatLabel}>Answered</Text>
+              </View>
+
+              <View style={styles.exitStatCard}>
+                <Text style={styles.exitStatValue}>
+                  {questions.length - answers.length}
+                </Text>
+
+                <Text style={styles.exitStatLabel}>Remaining</Text>
+              </View>
+            </View>
+
+            <TouchableOpacity
+              activeOpacity={0.9}
+              onPress={() => setShowExitModal(false)}
+            >
+              <LinearGradient
+                colors={['#4F46E5', '#7C3AED']}
+                style={styles.continueExamButton}
+              >
+                <Text style={styles.continueExamText}>Continue Exam</Text>
+              </LinearGradient>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              activeOpacity={0.9}
+              onPress={() => {
+                setShowExitModal(false);
+                setShowSubmitModal(true);
+              }}
+              style={styles.submitNowButton}
+            >
+              <Text style={styles.submitNowText}>Submit & Exit</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -1144,5 +1168,100 @@ const styles = StyleSheet.create({
   loaderSubText: {
     color: '#6B7280',
     marginTop: 5,
+  },
+  exitButton: {
+    width: 50,
+    height: 50,
+    borderRadius: 15,
+    backgroundColor: 'rgba(255,255,255,0.15)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  exitModal: {
+    backgroundColor: '#FFF',
+    borderRadius: 30,
+    padding: 25,
+    width: '100%',
+  },
+
+  exitIconWrapper: {
+    alignItems: 'center',
+  },
+
+  exitTitle: {
+    fontSize: 24,
+    fontWeight: '800',
+    color: '#111827',
+    textAlign: 'center',
+    marginTop: 15,
+  },
+
+  exitMessage: {
+    textAlign: 'center',
+    marginTop: 10,
+    color: '#374151',
+    fontSize: 16,
+  },
+
+  exitSubMessage: {
+    textAlign: 'center',
+    color: '#6B7280',
+    marginTop: 5,
+    lineHeight: 22,
+  },
+
+  exitStatsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 25,
+  },
+
+  exitStatCard: {
+    width: '48%',
+    backgroundColor: '#F9FAFB',
+    borderRadius: 18,
+    padding: 15,
+    alignItems: 'center',
+  },
+
+  exitStatValue: {
+    fontSize: 24,
+    fontWeight: '800',
+    color: '#4F46E5',
+  },
+
+  exitStatLabel: {
+    marginTop: 5,
+    color: '#6B7280',
+  },
+
+  continueExamButton: {
+    height: 55,
+    borderRadius: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  continueExamText: {
+    color: '#FFF',
+    fontSize: 16,
+    fontWeight: '700',
+  },
+
+  submitNowButton: {
+    marginTop: 15,
+    height: 55,
+    borderRadius: 15,
+    borderWidth: 1.5,
+    borderColor: '#EF4444',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  submitNowText: {
+    color: '#EF4444',
+    fontWeight: '700',
+    fontSize: 16,
   },
 });

@@ -14,9 +14,9 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Toast from 'react-native-toast-message';
-import { useNavigation } from '@react-navigation/native';
 import API from '../../api/axios';
-
+import { useNavigation } from '@react-navigation/native';
+import { authStore } from '../../store/authStore';
 export default function StudentDashboard() {
   const navigation = useNavigation();
 
@@ -26,28 +26,29 @@ export default function StudentDashboard() {
   const [student, setStudent] = useState({});
   const [classrooms, setClassrooms] = useState([]);
   const [attempts, setAttempts] = useState([]);
-
+  const [user, setUser] = useState([]);
   useEffect(() => {
     loadDashboard();
   }, []);
-
+  const logout = authStore(state => state.logout);
   const loadDashboard = async () => {
     try {
       setLoading(true);
 
-      const [classroomRes, attemptsRes] = await Promise.all([
+      const [classroomRes, attemptsRes, user] = await Promise.all([
         API.get('/student/my-classrooms'),
         API.get('/student/attempts'),
+        API.get('/auth/me'),
       ]);
 
       setClassrooms(classroomRes?.data?.data || []);
       setAttempts(attemptsRes?.data?.data || []);
+      setUser(user?.data?.user || []);
 
       // Get profile from token/user API if available
       const userData = attemptsRes?.data?.user || {
         fullName: 'Student',
       };
-
       setStudent(userData);
     } catch (error) {
       console.log(error);
@@ -68,7 +69,7 @@ export default function StudentDashboard() {
 
     setRefreshing(false);
   }, []);
-
+  console.log(user?.fullName);
   const averageScore =
     attempts.length > 0
       ? Math.round(
@@ -84,7 +85,6 @@ export default function StudentDashboard() {
       </SafeAreaView>
     );
   }
-
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="#4F46E5" barStyle="light-content" />
@@ -107,20 +107,21 @@ export default function StudentDashboard() {
           <View style={styles.profileRow}>
             <View style={styles.avatar}>
               <Text style={styles.avatarText}>
-                {student?.fullName?.charAt(0)?.toUpperCase() || 'S'}
+                {user?.fullName?.charAt(0)?.toUpperCase() || 'S'}
               </Text>
             </View>
 
             <View style={{ flex: 1 }}>
               <Text style={styles.welcomeText}>Welcome Back 👋</Text>
 
-              <Text style={styles.nameText}>
-                {student?.fullName || 'Student'}
-              </Text>
+              <Text style={styles.nameText}>{user?.fullName || 'Student'}</Text>
             </View>
 
-            <TouchableOpacity style={styles.notificationButton}>
-              <Icon name="notifications-outline" size={24} color="#FFF" />
+            <TouchableOpacity
+              style={styles.notificationButton}
+              onPress={() => logout()}
+            >
+              <Icon name="log-out-outline" size={24} color="#FFF" />
             </TouchableOpacity>
           </View>
 
@@ -220,7 +221,6 @@ export default function StudentDashboard() {
 
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>Recent Results</Text>
-
           {attempts.length === 0 ? (
             <Text style={styles.noAttemptText}>No exam attempts yet</Text>
           ) : (
@@ -229,8 +229,10 @@ export default function StudentDashboard() {
                 key={item._id}
                 style={styles.resultCard}
                 onPress={() =>
-                  navigation.navigate('ExamResultScreen', {
+                  navigation.navigate('ResultScreen', {
                     attemptId: item._id,
+                    result: attempts || {},
+                    exam: null,
                   })
                 }
               >
@@ -313,7 +315,7 @@ const styles = StyleSheet.create({
   notificationButton: {
     width: 45,
     height: 45,
-    borderRadius: 22,
+    borderRadius: 10,
     backgroundColor: 'rgba(255,255,255,0.2)',
     justifyContent: 'center',
     alignItems: 'center',

@@ -1,5 +1,5 @@
 # ninja log v5
-3	46	0	D:/QuizBee/android/app/.cxx/Debug/2u5w5e4f/arm64-v8a/CMakeFiles/cmake.verify_globs	e4fa9ef4d5ec108d
+5	77	0	D:/QuizBee/android/app/.cxx/Debug/2u5w5e4f/arm64-v8a/CMakeFiles/cmake.verify_globs	e4fa9ef4d5ec108d
 52937	59526	8017694667157312	rnscreens_autolinked_build/CMakeFiles/react_codegen_rnscreens.dir/6d14b1f14abedb81b755a85ca36f24a7/android/build/generated/source/codegen/jni/react/renderer/components/rnscreens/States.cpp.o	323d5253398c1218
 92	5528	8022080538313646	AsyncStorageSpec_autolinked_build/CMakeFiles/react_codegen_AsyncStorageSpec.dir/react/renderer/components/AsyncStorageSpec/States.cpp.o	8aab9cb2d2f8399d
 84	7995	8022080562773680	AsyncStorageSpec_autolinked_build/CMakeFiles/react_codegen_AsyncStorageSpec.dir/react/renderer/components/AsyncStorageSpec/ComponentDescriptors.cpp.o	48d0ed3cb75dc0f6
@@ -125,4 +125,4 @@
 67734	80689	8022081290164717	rnsvg_autolinked_build/CMakeFiles/react_codegen_rnsvg.dir/8f9790fbc3906b9afac38e426d5dbd44/android/build/generated/source/codegen/jni/react/renderer/components/rnsvg/ComponentDescriptors.cpp.o	636e0a86b1b11a47
 91771	92152	8022081404776807	D:/QuizBee/android/app/build/intermediates/cxx/Debug/2u5w5e4f/obj/arm64-v8a/libreact_codegen_rnsvg.so	ca02f36565a9c721
 1	47	0	clean	a7599ba112d4aef9
-2	38	0	D:/QuizBee/android/app/.cxx/Debug/2u5w5e4f/arm64-v8a/CMakeFiles/cmake.verify_globs	e4fa9ef4d5ec108d
+2	48	0	D:/QuizBee/android/app/.cxx/Debug/2u5w5e4f/arm64-v8a/CMakeFiles/cmake.verify_globs	e4fa9ef4d5ec108d
