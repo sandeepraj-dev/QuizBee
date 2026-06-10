@@ -36,7 +36,6 @@ export default function CreateExamScreen() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [duration, setDuration] = useState('');
-  const [totalMarks, setTotalMarks] = useState('');
 
   const [errors, setErrors] = useState({});
 
@@ -51,7 +50,6 @@ export default function CreateExamScreen() {
       setTitle(examData?.title || '');
       setDescription(examData?.description || '');
       setDuration(String(examData?.duration || ''));
-      setTotalMarks(String(examData?.totalMarks || ''));
     }
   }, [examData, classrooms]);
 
@@ -89,8 +87,6 @@ export default function CreateExamScreen() {
 
     if (!duration) newErrors.duration = 'Duration is required';
 
-    if (!totalMarks) newErrors.totalMarks = 'Total marks is required';
-
     setErrors(newErrors);
 
     return Object.keys(newErrors).length === 0;
@@ -109,7 +105,6 @@ export default function CreateExamScreen() {
         title,
         description,
         duration: Number(duration),
-        totalMarks: Number(totalMarks),
       };
 
       if (isEdit) {
@@ -248,21 +243,6 @@ export default function CreateExamScreen() {
 
           {errors.duration && (
             <Text style={styles.errorText}>{errors.duration}</Text>
-          )}
-
-          <Text style={styles.label}>Total Marks *</Text>
-
-          <TextInput
-            keyboardType="numeric"
-            style={[styles.input, errors.totalMarks && styles.errorBorder]}
-            placeholder="20"
-            placeholderTextColor="#9CA3AF"
-            value={totalMarks}
-            onChangeText={setTotalMarks}
-          />
-
-          {errors.totalMarks && (
-            <Text style={styles.errorText}>{errors.totalMarks}</Text>
           )}
 
           <TouchableOpacity

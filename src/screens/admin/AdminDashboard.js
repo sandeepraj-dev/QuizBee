@@ -106,7 +106,7 @@ export default function AdminDashboard() {
               <TouchableOpacity
                 style={styles.cardWrapper}
                 activeOpacity={0.9}
-                onPress={() => navigation.navigate('ManageExams')}
+                onPress={() => navigation.navigate('ManageExam')}
               >
                 <DashboardCard
                   title="Exams"
@@ -142,10 +142,26 @@ export default function AdminDashboard() {
             <View style={styles.quickGrid}>
               <TouchableOpacity
                 style={styles.quickCard}
-                onPress={() => navigation.navigate('CreateExam')}
+                onPress={() => navigation.navigate('ManageClassroom')}
+              >
+                <Icon name="school" size={30} color="#5B67F1" />
+                <Text style={styles.quickText}>Manage Classroom</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.quickCard}
+                onPress={() => navigation.navigate('ManageExam')}
+              >
+                <Icon name="document-text" size={30} color="#5B67F1" />
+                <Text style={styles.quickText}>Manage Exam</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.quickCard}
+                onPress={() => navigation.navigate('ManageQuestion')}
               >
                 <Icon name="add-circle" size={30} color="#5B67F1" />
-                <Text style={styles.quickText}>Create Exam</Text>
+                <Text style={styles.quickText}>Create Question</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -156,7 +172,7 @@ export default function AdminDashboard() {
                 <Text style={styles.quickText}>Add Student</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.quickCard}>
+              {/* <TouchableOpacity style={styles.quickCard}>
                 <Icon name="bar-chart" size={30} color="#5B67F1" />
                 <Text style={styles.quickText}>Analytics</Text>
               </TouchableOpacity>
@@ -167,7 +183,7 @@ export default function AdminDashboard() {
               >
                 <Icon name="settings" size={30} color="#5B67F1" />
                 <Text style={styles.quickText}>Settings</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
           </>
         )}

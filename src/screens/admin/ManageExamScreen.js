@@ -105,14 +105,33 @@ export default function ManageExamScreen() {
 
   const totalExams = exams.length;
 
-  const publishedCount = exams.filter(x => x.status === 'Published').length;
+  const publishedCount = exams.filter(x => x.isPublished).length;
 
-  const draftCount = exams.filter(x => x.status === 'Draft').length;
+  const draftCount = exams.filter(x => !x.isPublished).length;
+  const handlePublish = async (id, isPublished) => {
+    try {
+      await API.patch(`/exams/${id}/publish`),
+        {
+          isPublished: isPublished,
+        };
+
+      Toast.show({
+        type: 'success',
+        text1: `Exam ${isPublished ? 'published' : 'unpublished'} successfully`,
+      });
+
+      loadExams();
+    } catch (error) {
+      Toast.show({
+        type: 'error',
+        text1: 'Publish failed',
+      });
+    }
+  };
 
   const renderExam = ({ item }) => {
     const classroomName =
       item?.classroomId?.name || item?.classroomName || 'Classroom';
-
     return (
       <View style={styles.examCard}>
         <View style={styles.examHeader}>
@@ -126,18 +145,20 @@ export default function ManageExamScreen() {
             style={[
               styles.statusChip,
               {
-                backgroundColor:
-                  item.status === 'Published' ? '#DCFCE7' : '#FEF3C7',
+                backgroundColor: item.isPublished ? '#DCFCE7' : '#FEF3C7',
               },
             ]}
           >
             <Text
               style={{
-                color: item.status === 'Published' ? '#16A34A' : '#D97706',
+                color: item.isPublished ? '#16A34A' : '#D97706',
                 fontWeight: '700',
+                alignSelf: 'center',
+                alignContent: 'center',
+                marginTop: 7,
               }}
             >
-              {item.status || 'Draft'}
+              {item.isPublished ? 'Published' : 'unpublished'}
             </Text>
           </View>
         </View>
@@ -166,6 +187,17 @@ export default function ManageExamScreen() {
             <Icon name="create-outline" size={18} color="#FFF" />
 
             <Text style={styles.btnText}>Edit</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.publishButton}
+            onPress={() => handlePublish(item._id, !item.isPublished)}
+          >
+            <Icon name="cloud-upload-outline" size={18} color="#FFF" />
+
+            <Text style={styles.btnText}>
+              {item.isPublished ? 'Unpublish' : 'Publish'}
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -218,13 +250,13 @@ export default function ManageExamScreen() {
           >
             <Icon name="arrow-back" size={24} color="#FFF" />
           </TouchableOpacity>
-
+          {/* 
           <TouchableOpacity
             style={styles.headerButton}
             onPress={() => navigation.navigate('CreateExam')}
           >
             <Icon name="add" size={28} color="#FFF" />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
 
         <View style={styles.iconBox}>
@@ -266,6 +298,19 @@ export default function ManageExamScreen() {
           style={styles.searchInput}
         />
       </View>
+
+      {/* FAB */}
+      <TouchableOpacity
+        style={styles.fab}
+        onPress={() => navigation.navigate('CreateExam')}
+      >
+        <LinearGradient
+          colors={['#4F46E5', '#7C3AED']}
+          style={styles.fabGradient}
+        >
+          <Icon name="add" size={20} color="#FFF" />
+        </LinearGradient>
+      </TouchableOpacity>
 
       {loading ? (
         <View style={styles.loader}>
@@ -348,6 +393,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     marginTop: 20,
+  },
+  fab: {
+    position: 'absolute',
+    bottom: 25,
+    right: 25,
+  },
+
+  fabGradient: {
+    width: 60,
+    height: 60,
+    borderRadius: 33,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   headerTitle: {
@@ -527,5 +585,16 @@ const styles = StyleSheet.create({
   createExamText: {
     color: '#FFF',
     fontWeight: '700',
+  },
+  publishButton: {
+    marginRight: 10,
+    flex: 1,
+    backgroundColor: '#10B981',
+    height: 48,
+    borderRadius: 14,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    paddingHorizontal: 10,
   },
 });

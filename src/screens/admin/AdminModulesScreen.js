@@ -20,13 +20,13 @@ export default function AdminModulesScreen() {
   const [search, setSearch] = useState('');
 
   const academicModules = [
-    // {
-    //   title: 'Create Classroom',
-    //   description: 'Create new classrooms',
-    //   icon: 'school',
-    //   route: 'CreateClassroom',
-    //   colors: ['#4F46E5', '#6366F1'],
-    // },
+    {
+      title: 'Create Classroom',
+      description: 'Create new classrooms',
+      icon: 'school',
+      route: 'CreateClassroom',
+      colors: ['#4F46E5', '#6366F1'],
+    },
     {
       title: 'Manage Classroom',
       description: 'Manage all classrooms',
@@ -34,13 +34,7 @@ export default function AdminModulesScreen() {
       route: 'ManageClassroom',
       colors: ['#06B6D4', '#0EA5E9'],
     },
-    {
-      title: 'Students in Classroom',
-      description: 'View students in each class',
-      icon: 'people',
-      route: 'ClassroomStudents',
-      colors: ['#14B8A6', '#2DD4BF'],
-    },
+
     {
       title: 'Create Exam',
       description: 'Create online exams',
@@ -69,44 +63,58 @@ export default function AdminModulesScreen() {
       route: 'ManageQuestion',
       colors: ['#8B5CF6', '#A78BFA'],
     },
-  ];
-
-  const adminModules = [
     {
       title: 'Students',
       description: 'Manage students',
       icon: 'people',
-      route: 'AddStudentToClassroom',
+      route: 'ClassroomStudents',
       colors: ['#14B8A6', '#2DD4BF'],
     },
     {
-      title: 'Faculty',
-      description: 'Manage faculty',
-      icon: 'person',
-      route: 'Faculty',
-      colors: ['#EF4444', '#F87171'],
+      title: 'Students in Classroom',
+      description: 'View students in each class',
+      icon: 'people',
+      route: 'AddStudentToClassroom',
+      colors: ['#14B8A6', '#2DD4BF'],
     },
-    {
-      title: 'Attempts',
-      description: 'Exam attempts',
-      icon: 'analytics',
-      route: 'Attempts',
-      colors: ['#0891B2', '#06B6D4'],
-    },
-    {
-      title: 'Reports',
-      description: 'Analytics & reports',
-      icon: 'bar-chart',
-      route: 'Reports',
-      colors: ['#7C3AED', '#A855F7'],
-    },
-    {
-      title: 'Settings',
-      description: 'Application settings',
-      route: 'Settings',
-      icon: 'settings',
-      colors: ['#374151', '#6B7280'],
-    },
+  ];
+
+  const adminModules = [
+    // {
+    //   title: 'Students',
+    //   description: 'Manage students',
+    //   icon: 'people',
+    //   route: 'AddStudentToClassroom',
+    //   colors: ['#14B8A6', '#2DD4BF'],
+    // },
+    // {
+    //   title: 'Faculty',
+    //   description: 'Manage faculty',
+    //   icon: 'person',
+    //   route: 'Faculty',
+    //   colors: ['#EF4444', '#F87171'],
+    // },
+    // {
+    //   title: 'Attempts',
+    //   description: 'Exam attempts',
+    //   icon: 'analytics',
+    //   route: 'Attempts',
+    //   colors: ['#0891B2', '#06B6D4'],
+    // },
+    // {
+    //   title: 'Reports',
+    //   description: 'Analytics & reports',
+    //   icon: 'bar-chart',
+    //   route: 'Reports',
+    //   colors: ['#7C3AED', '#A855F7'],
+    // },
+    // {
+    //   title: 'Settings',
+    //   description: 'Application settings',
+    //   route: 'Settings',
+    //   icon: 'settings',
+    //   colors: ['#374151', '#6B7280'],
+    // },
   ];
   const filteredAcademicModules = academicModules.filter(item =>
     item.title.toLowerCase().includes(search.toLowerCase()),
@@ -196,7 +204,7 @@ export default function AdminModulesScreen() {
         )}
         {/* ADMIN */}
 
-        {filteredAdminModules.length > 0 && (
+        {/* {filteredAdminModules.length > 0 && (
           <>
             <Text style={styles.sectionTitle}>Administration</Text>
 
@@ -204,7 +212,7 @@ export default function AdminModulesScreen() {
               {filteredAdminModules.map(renderCard)}
             </View>
           </>
-        )}
+        )} */}
         <View style={{ height: 120 }} />
       </ScrollView>
     </SafeAreaView>

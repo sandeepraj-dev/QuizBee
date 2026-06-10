@@ -94,6 +94,9 @@ export default function SettingsScreen() {
       logout();
       navigation.navigate('Login');
     }
+    if (item.label === 'Profile Settings') {
+      navigation.navigate('StudentDashboard');
+    }
   };
 
   const renderItem = item => {

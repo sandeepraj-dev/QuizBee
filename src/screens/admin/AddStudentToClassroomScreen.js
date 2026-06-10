@@ -106,7 +106,7 @@ export default function AddStudentToClassroomScreen() {
         text1: 'Students added successfully',
       });
 
-      navigation.goBack();
+      // navigation.goBack();
     } catch (error) {
       Toast.show({
         type: 'error',
@@ -264,7 +264,6 @@ export default function AddStudentToClassroomScreen() {
         <View style={styles.modalOverlay}>
           <View style={styles.modalContainer}>
             <Text style={styles.modalTitle}>Select Classroom</Text>
-
             <FlatList
               data={classrooms}
               keyExtractor={item => item._id}
@@ -279,7 +278,13 @@ export default function AddStudentToClassroomScreen() {
                   <Text>{item.name}</Text>
                 </TouchableOpacity>
               )}
-            />
+            />{' '}
+            <TouchableOpacity
+              style={styles.modalCloseBtn}
+              onPress={() => setShowClassroomModal(false)}
+            >
+              <Text style={styles.modalCloseText}>Close</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
@@ -287,6 +292,34 @@ export default function AddStudentToClassroomScreen() {
   );
 }
 const styles = StyleSheet.create({
+  modalCloseBtn: {
+    marginTop: 20,
+    backgroundColor: '#EF4444',
+    height: 52,
+    borderRadius: 14,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  modalCloseText: {
+    color: '#FFF',
+    fontWeight: '700',
+    fontSize: 15,
+  },
+  modalCloseBtn: {
+    marginTop: 20,
+    backgroundColor: '#EF4444',
+    height: 52,
+    borderRadius: 14,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  modalCloseText: {
+    color: '#FFF',
+    fontWeight: '700',
+    fontSize: 15,
+  },
   listLoader: {
     flex: 1,
     justifyContent: 'center',

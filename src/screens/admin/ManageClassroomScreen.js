@@ -191,7 +191,7 @@ export default function ManageClassroomScreen() {
           colors={['#4F46E5', '#7C3AED']}
           style={styles.fabGradient}
         >
-          <Icon name="add" size={30} color="#FFF" />
+          <Icon name="add" size={20} color="#FFF" />
         </LinearGradient>
       </TouchableOpacity>
 
@@ -365,8 +365,8 @@ const styles = StyleSheet.create({
   },
 
   fabGradient: {
-    width: 65,
-    height: 65,
+    width: 60,
+    height: 60,
     borderRadius: 33,
     justifyContent: 'center',
     alignItems: 'center',

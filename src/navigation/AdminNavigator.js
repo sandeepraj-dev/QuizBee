@@ -19,6 +19,7 @@ import BottomNavigation from '../screens/admin/BottomNavigation';
 import AddStudentToClassroomScreen from '../screens/admin/AddStudentToClassroomScreen';
 import ClassroomStudentsScreen from '../screens/admin/ClassroomStudentsScreen';
 import StudentListScreen from '../screens/admin/StudentListScreen';
+import StudentDashboard from '../screens/student/StudentDashboard';
 
 const Stack = createNativeStackNavigator();
 
@@ -99,6 +100,11 @@ export default function AdminNavigator() {
       <Stack.Screen
         name="StudentList"
         component={StudentListScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="StudentDashboard"
+        component={StudentDashboard}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
