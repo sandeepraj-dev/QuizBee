@@ -10,6 +10,11 @@ export const authStore = create(set => ({
       token,
     }),
 
+  setUser: user =>
+    set({
+      user,
+    }),
+
   logout: () =>
     set({
       user: null,

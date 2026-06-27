@@ -1,7 +1,5 @@
 import React from 'react';
-
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import SettingsScreen from '../admin/SettingsScreen';
@@ -16,65 +14,68 @@ export default function BottomNavigation() {
       screenOptions={({ route }) => ({
         headerShown: false,
 
-        tabBarShowLabel: true,
-
-        tabBarActiveTintColor: '#4F46E5',
-
-        tabBarInactiveTintColor: '#9CA3AF',
+        tabBarActiveTintColor: '#FFFFFF',
+        tabBarInactiveTintColor: 'rgba(255,255,255,0.7)',
 
         tabBarStyle: {
           position: 'absolute',
+          alignSelf: 'center',
 
-          left: 15,
+          bottom: 16,
 
-          right: 15,
+          height: 65,
 
-          bottom: 15,
+          margin: 20,
 
-          height: 75,
+          width: '90%',
 
-          borderRadius: 24,
+          backgroundColor: '#2563EB',
 
-          backgroundColor: '#FFFFFF',
+          borderRadius: 25,
 
           borderTopWidth: 0,
 
-          elevation: 8,
+          elevation: 12,
 
-          shadowColor: '#000',
-
+          shadowColor: '#2563EB',
           shadowOffset: {
             width: 0,
-            height: 6,
+            height: 5,
           },
 
-          shadowOpacity: 0.1,
-
-          shadowRadius: 10,
-
-          paddingBottom: 8,
-
-          paddingTop: 8,
+          shadowOpacity: 0.25,
+          shadowRadius: 12,
         },
 
         tabBarLabelStyle: {
           fontSize: 12,
-          fontWeight: '600',
+          fontWeight: '700',
+          marginBottom: 5,
+        },
+
+        tabBarItemStyle: {
+          marginVertical: 5,
+          borderRadius: 18,
         },
 
         tabBarIcon: ({ focused, color }) => {
           let iconName;
 
-          if (route.name === 'Dashboard') {
-            iconName = focused ? 'grid' : 'grid-outline';
-          }
+          switch (route.name) {
+            case 'Dashboard':
+              iconName = focused ? 'grid' : 'grid-outline';
+              break;
 
-          if (route.name === 'Modules') {
-            iconName = focused ? 'book' : 'book-outline';
-          }
+            case 'Modules':
+              iconName = focused ? 'book' : 'book-outline';
+              break;
 
-          if (route.name === 'Settings') {
-            iconName = focused ? 'settings' : 'settings-outline';
+            case 'Settings':
+              iconName = focused ? 'settings' : 'settings-outline';
+              break;
+
+            default:
+              iconName = 'ellipse';
           }
 
           return <Icon name={iconName} size={24} color={color} />;

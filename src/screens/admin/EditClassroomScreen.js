@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
 import {
-  View,
+  ActivityIndicator,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
-  ActivityIndicator,
-  Alert,
-  SafeAreaView,
-  StatusBar,
+  View,
 } from 'react-native';
 
-import LinearGradient from 'react-native-linear-gradient';
-import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation, useRoute } from '@react-navigation/native';
-
+import LinearGradient from 'react-native-linear-gradient';
+import Toast from 'react-native-toast-message';
+import Icon from 'react-native-vector-icons/Ionicons';
 import API from './../../api/axios';
 
 export default function EditClassroomScreen() {
@@ -29,7 +28,7 @@ export default function EditClassroomScreen() {
 
   const updateClassroom = async () => {
     if (!name.trim() || !description.trim()) {
-      Alert.alert('Validation', 'All fields are required');
+      'Validation', 'All fields are required';
       return;
     }
 
@@ -41,12 +40,20 @@ export default function EditClassroomScreen() {
         description,
       });
 
-      Alert.alert('Success', 'Classroom updated successfully');
-
+      Toast.show({
+        type: 'Success',
+        position: 'bottom',
+        text1: 'Classroom updated successfully',
+      });
       navigation.goBack();
     } catch (error) {
       console.log(error?.response?.data || error);
-      Alert.alert('Error', error?.response?.data?.message || 'Update failed');
+      Toast.show({
+        type: 'error',
+        position: 'bottom',
+        text1: 'Error',
+        text2: error?.response?.data?.message || 'Update failed',
+      });
     } finally {
       setLoading(false);
     }

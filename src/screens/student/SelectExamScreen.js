@@ -47,6 +47,7 @@ export default function SelectExamScreen() {
 
       Toast.show({
         type: 'error',
+        position: 'bottom',
         text1: 'Failed to load exams',
       });
     } finally {

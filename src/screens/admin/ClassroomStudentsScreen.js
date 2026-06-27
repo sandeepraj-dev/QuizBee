@@ -68,19 +68,33 @@ export default function ClassroomStudentsScreen() {
     }
   };
 
-  const renderStudent = ({ item }) => (
+  const renderStudent = ({ item, index }) => (
     <View style={styles.studentCard}>
-      <View style={styles.avatar}>
-        <Icon name="person" size={24} color="#FFF" />
-      </View>
+      <LinearGradient colors={['#6366F1', '#7C3AED']} style={styles.avatar}>
+        <Text style={styles.avatarText}>
+          {(item.fullName || 'S').charAt(0).toUpperCase()}
+        </Text>
+      </LinearGradient>
 
       <View style={{ flex: 1 }}>
-        <Text style={styles.studentName}>{item.name}</Text>
+        <Text style={styles.studentName}>{item.fullName}</Text>
 
-        <Text style={styles.studentInfo}>{item.email}</Text>
+        <View style={styles.infoRow}>
+          <Icon name="mail-outline" size={15} color="#6B7280" />
 
-        <Text style={styles.studentInfo}>{item.phone || 'No Phone'}</Text>
+          <Text style={styles.studentInfo}>{item.email}</Text>
+        </View>
+
+        <View style={styles.infoRow}>
+          <Icon name="call-outline" size={15} color="#6B7280" />
+
+          <Text style={styles.studentInfo}>{item.phone}</Text>
+        </View>
       </View>
+
+      {/* <View style={styles.numberBadge}>
+        <Text style={styles.numberText}>{index + 1}</Text>
+      </View> */}
     </View>
   );
 
@@ -148,7 +162,15 @@ export default function ClassroomStudentsScreen() {
 
         {selectedClassroom && (
           <View style={styles.countCard}>
-            <Text style={styles.countText}>Students: {students.length}</Text>
+            <View>
+              <Text style={styles.countLabel}>Total Students</Text>
+
+              <Text style={styles.countNumber}>{students.length}</Text>
+            </View>
+
+            <View style={styles.countIcon}>
+              <Icon name="people" color="#4F46E5" size={26} />
+            </View>
           </View>
         )}
 
@@ -163,18 +185,39 @@ export default function ClassroomStudentsScreen() {
             data={students}
             keyExtractor={item => item._id}
             renderItem={renderStudent}
-            showsVerticalScrollIndicator={false}
+            style={{ flex: 1 }}
             contentContainerStyle={{
-              paddingBottom: 120,
+              paddingBottom: 30,
+              flexGrow: 1,
             }}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
             ListEmptyComponent={
               selectedClassroom ? (
                 <View style={styles.emptyContainer}>
-                  <Icon name="people-outline" size={80} color="#D1D5DB" />
+                  <View style={styles.emptyIcon}>
+                    <Icon name="people-outline" size={70} color="#A5B4FC" />
+                  </View>
 
-                  <Text style={styles.emptyTitle}>No Students Found</Text>
+                  <Text style={styles.emptyTitle}>No Students Listed</Text>
+
+                  <Text style={styles.emptySubtitle}>
+                    There are no students enrolled in this classroom yet.
+                  </Text>
                 </View>
-              ) : null
+              ) : (
+                <View style={styles.emptyContainer}>
+                  <View style={styles.emptyIcon}>
+                    <Icon name="school-outline" size={70} color="#A5B4FC" />
+                  </View>
+
+                  <Text style={styles.emptyTitle}>Select a Classroom</Text>
+
+                  <Text style={styles.emptySubtitle}>
+                    Choose a classroom to view students.
+                  </Text>
+                </View>
+              )
             }
           />
         )}
@@ -259,7 +302,9 @@ const styles = StyleSheet.create({
   },
 
   content: {
-    padding: 20,
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingTop: 20,
   },
 
   label: {
@@ -287,10 +332,123 @@ const styles = StyleSheet.create({
   },
 
   countCard: {
+    marginVertical: 18,
+    backgroundColor: '#FFF',
+    borderRadius: 18,
+    padding: 18,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    elevation: 4,
+  },
+
+  countLabel: {
+    color: '#6B7280',
+    fontSize: 13,
+  },
+
+  countNumber: {
+    fontSize: 28,
+    fontWeight: '800',
+    color: '#4F46E5',
+    marginTop: 4,
+  },
+
+  countIcon: {
+    width: 55,
+    height: 55,
+    borderRadius: 28,
     backgroundColor: '#EEF2FF',
-    marginTop: 20,
-    borderRadius: 14,
-    padding: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  studentCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FFF',
+    marginBottom: 14,
+    padding: 16,
+    borderRadius: 20,
+    elevation: 3,
+  },
+
+  avatar: {
+    width: 58,
+    height: 58,
+    borderRadius: 29,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 16,
+  },
+
+  avatarText: {
+    color: '#FFF',
+    fontWeight: '800',
+    fontSize: 22,
+  },
+
+  infoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 6,
+  },
+
+  studentInfo: {
+    color: '#6B7280',
+    marginLeft: 8,
+    fontSize: 13,
+  },
+
+  studentName: {
+    fontSize: 17,
+    fontWeight: '700',
+    color: '#111827',
+  },
+
+  numberBadge: {
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    backgroundColor: '#EEF2FF',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  numberText: {
+    color: '#4F46E5',
+    fontWeight: '800',
+  },
+
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 80,
+  },
+
+  emptyIcon: {
+    width: 110,
+    height: 110,
+    borderRadius: 55,
+    backgroundColor: '#EEF2FF',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  emptyTitle: {
+    marginTop: 22,
+    fontSize: 22,
+    fontWeight: '700',
+    color: '#374151',
+  },
+
+  emptySubtitle: {
+    marginTop: 10,
+    textAlign: 'center',
+    color: '#9CA3AF',
+    paddingHorizontal: 40,
+    lineHeight: 22,
   },
 
   countText: {

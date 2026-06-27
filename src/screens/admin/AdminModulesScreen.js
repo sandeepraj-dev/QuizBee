@@ -23,62 +23,60 @@ export default function AdminModulesScreen() {
     {
       title: 'Create Classroom',
       description: 'Create new classrooms',
-      icon: 'school',
+      icon: 'school-outline',
       route: 'CreateClassroom',
-      colors: ['#4F46E5', '#6366F1'],
+      colors: ['#4F8CFF', '#2563EB'], // Royal Blue
     },
     {
       title: 'Manage Classroom',
       description: 'Manage all classrooms',
-      icon: 'business',
+      icon: 'business-outline',
       route: 'ManageClassroom',
-      colors: ['#06B6D4', '#0EA5E9'],
+      colors: ['#00C6A7', '#009688'], // Aqua Green
     },
-
     {
       title: 'Create Exam',
       description: 'Create online exams',
-      icon: 'document-text',
+      icon: 'document-text-outline',
       route: 'CreateExam',
-      colors: ['#10B981', '#34D399'],
+      colors: ['#6EEB83', '#16A34A'], // Fresh Green
     },
     {
       title: 'Manage Exam',
       description: 'Publish and manage exams',
-      icon: 'clipboard',
+      icon: 'clipboard-outline',
       route: 'ManageExam',
-      colors: ['#F59E0B', '#FBBF24'],
+      colors: ['#FFC857', '#F59E0B'], // Golden Amber
     },
     {
       title: 'Create Question',
       description: 'Add exam questions',
-      icon: 'create',
+      icon: 'create-outline',
       route: 'CreateQuestion',
-      colors: ['#EC4899', '#F472B6'],
+      colors: ['#FF7EB3', '#E91E63'], // Vibrant Pink
     },
     {
       title: 'Manage Question',
       description: 'Question bank management',
-      icon: 'reader',
+      icon: 'reader-outline',
       route: 'ManageQuestion',
-      colors: ['#8B5CF6', '#A78BFA'],
-    },
-    {
-      title: 'Students',
-      description: 'Manage students',
-      icon: 'people',
-      route: 'ClassroomStudents',
-      colors: ['#14B8A6', '#2DD4BF'],
+      colors: ['#9B8CFF', '#7C3AED'], // Deep Purple
     },
     {
       title: 'Students in Classroom',
       description: 'View students in each class',
-      icon: 'people',
+      icon: 'people-circle-outline',
       route: 'AddStudentToClassroom',
-      colors: ['#14B8A6', '#2DD4BF'],
+      colors: ['#FF6B6B', '#EF4444'], // Coral Red
+    },
+    {
+      title: 'AI Question Generator',
+      description: 'Generate questions using AI',
+      icon: 'sparkles-outline',
+      route: 'AIQuestionGeneratorScreen',
+      colors: ['#00D4FF', '#3B82F6'], // Electric Blue
     },
   ];
-
   const adminModules = [
     // {
     //   title: 'Students',
@@ -115,6 +113,20 @@ export default function AdminModulesScreen() {
     //   icon: 'settings',
     //   colors: ['#374151', '#6B7280'],
     // },
+    {
+      title: 'AI Question Generator',
+      description: 'Generate exam questions using AI',
+      icon: 'sparkles',
+      route: 'AIQuestionGeneratorScreen',
+      colors: ['#6366F1', '#8B5CF6'],
+    },
+    {
+      title: 'AI Question Preview',
+      description: 'Review generated questions',
+      route: 'AIPreviewScreen',
+      icon: 'document-text',
+      colors: ['#0EA5E9', '#38BDF8'],
+    },
   ];
   const filteredAcademicModules = academicModules.filter(item =>
     item.title.toLowerCase().includes(search.toLowerCase()),

@@ -75,6 +75,7 @@ export default function AttemptExamScreen() {
 
       Toast.show({
         type: 'error',
+        position: 'bottom',
         text1: error?.response?.data?.message || 'Failed to load exam',
       });
 
@@ -125,6 +126,7 @@ export default function AttemptExamScreen() {
       type: 'info',
       text1: 'Time Up',
       text2: 'Submitting exam...',
+      position: 'bottom',
     });
 
     await submitExam();
@@ -217,6 +219,7 @@ export default function AttemptExamScreen() {
 
       Toast.show({
         type: 'success',
+        position: 'bottom',
         text1: 'Exam Submitted Successfully',
       });
 
@@ -229,6 +232,7 @@ export default function AttemptExamScreen() {
 
       Toast.show({
         type: 'error',
+        position: 'bottom',
         text1: error?.response?.data?.message || 'Failed to submit exam',
       });
 

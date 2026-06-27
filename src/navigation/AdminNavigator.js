@@ -20,6 +20,13 @@ import ClassroomStudentsScreen from '../screens/admin/ClassroomStudentsScreen';
 import StudentListScreen from '../screens/admin/StudentListScreen';
 import StudentDashboard from '../screens/student/StudentDashboard';
 import ResultDetailsScreen from '../screens/student/ResultDetailsScreen';
+import ChangePasswordScreen from '../screens/auth/ChangePasswordScreen';
+import ProfileEditScreen from '../screens/student/ProfileEditScreen';
+import ProfileScreen from '../screens/admin/ProfileScreen';
+import AIQuestionGeneratorScreen from '../screens/admin/AIQuestionGeneratorScreen';
+import AIPreviewScreen from '../screens/admin/AIPreviewScreen';
+import QuestionPreviewScreen from '../screens/admin/QuestionPreviewScreen';
+
 const Stack = createNativeStackNavigator();
 
 export default function AdminNavigator() {
@@ -105,6 +112,36 @@ export default function AdminNavigator() {
         name="ResultScreen"
         component={ResultDetailsScreen}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ChangePasswordScreen"
+        component={ChangePasswordScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ProfileEditScreen"
+        component={ProfileEditScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ProfileScreen"
+        component={ProfileScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="AIQuestionGeneratorScreen"
+        component={AIQuestionGeneratorScreen}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="AIPreviewScreen"
+        component={AIPreviewScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="QuestionPreviewScreen"
+        component={QuestionPreviewScreen}
       />
     </Stack.Navigator>
   );

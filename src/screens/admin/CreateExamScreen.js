@@ -69,6 +69,7 @@ export default function CreateExamScreen() {
       console.log(error);
       Toast.show({
         type: 'error',
+        position: 'bottom',
         text1: 'Failed to load classrooms',
       });
     } finally {
@@ -113,6 +114,7 @@ export default function CreateExamScreen() {
         Toast.show({
           type: 'success',
           text1: 'Success',
+          position: 'bottom',
           text2: 'Exam updated successfully',
         });
       } else {
@@ -121,6 +123,7 @@ export default function CreateExamScreen() {
         Toast.show({
           type: 'success',
           text1: 'Success',
+          position: 'bottom',
           text2: 'Exam created successfully',
         });
       }
@@ -129,6 +132,7 @@ export default function CreateExamScreen() {
     } catch (error) {
       Toast.show({
         type: 'error',
+        position: 'bottom',
         text1: error?.response?.data?.message || 'Operation failed',
       });
     } finally {

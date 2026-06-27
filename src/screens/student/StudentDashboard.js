@@ -55,6 +55,7 @@ export default function StudentDashboard() {
 
       Toast.show({
         type: 'error',
+        position: 'bottom',
         text1: 'Failed to load dashboard',
       });
     } finally {

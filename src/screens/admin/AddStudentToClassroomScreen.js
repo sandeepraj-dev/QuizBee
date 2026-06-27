@@ -55,6 +55,7 @@ export default function AddStudentToClassroomScreen() {
 
       Toast.show({
         type: 'error',
+        position: 'bottom',
         text1: 'Failed to load data',
       });
     } finally {
@@ -81,6 +82,7 @@ export default function AddStudentToClassroomScreen() {
     if (!selectedClassroom) {
       Toast.show({
         type: 'error',
+        position: 'bottom',
         text1: 'Please select classroom',
       });
       return;
@@ -89,6 +91,7 @@ export default function AddStudentToClassroomScreen() {
     if (selectedStudents.length === 0) {
       Toast.show({
         type: 'error',
+        position: 'bottom',
         text1: 'Please select students',
       });
       return;
@@ -103,6 +106,7 @@ export default function AddStudentToClassroomScreen() {
 
       Toast.show({
         type: 'success',
+        position: 'bottom',
         text1: 'Students added successfully',
       });
 
@@ -110,6 +114,7 @@ export default function AddStudentToClassroomScreen() {
     } catch (error) {
       Toast.show({
         type: 'error',
+        position: 'bottom',
         text1: 'Failed to add students',
       });
     } finally {

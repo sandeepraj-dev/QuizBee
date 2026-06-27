@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   StatusBar,
   ActivityIndicator,
+  RefreshControl,
 } from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
@@ -18,15 +19,18 @@ import DashboardCard from '../../components/DashboardCard';
 
 import { getDashboardAnalyticsAPI } from '../../api/analytics.api';
 import { useNavigation } from '@react-navigation/native';
+import { authStore } from '../../store/authStore';
 
 export default function AdminDashboard() {
   const [analytics, setAnalytics] = useState({});
   const [loading, setLoading] = useState(false);
-
+  const [refreshing, setRefreshing] = useState(false);
   useEffect(() => {
     loadData();
   }, []);
   const navigation = useNavigation();
+  const userDeatils = authStore.getState().user;
+  console.log(userDeatils);
   const loadData = async () => {
     setLoading(true);
     try {
@@ -39,18 +43,43 @@ export default function AdminDashboard() {
       setLoading(false);
     }
   };
+  const onRefresh = async () => {
+    setRefreshing(true);
 
+    try {
+      await loadData();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setRefreshing(false);
+    }
+  };
   return (
     <>
       <StatusBar barStyle="light-content" />
 
-      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={styles.container}
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            colors={['#5B67F1']} // Android
+            tintColor="#5B67F1" // iOS
+            title="Refreshing..."
+          />
+        }
+      >
+        {' '}
         {/* HERO SECTION */}
         <LinearGradient colors={['#5B67F1', '#7B61FF']} style={styles.heroCard}>
           <View style={styles.heroTop}>
             <View>
               <Text style={styles.welcomeText}>Welcome Back 👋</Text>
-              <Text style={styles.adminText}>Admin</Text>
+              <Text style={styles.adminText}>
+                {userDeatils?.fullName || '-'}
+              </Text>
             </View>
 
             <View style={styles.profileCircle}>
@@ -58,7 +87,6 @@ export default function AdminDashboard() {
             </View>
           </View>
         </LinearGradient>
-
         {loading ? (
           <View style={styles.loaderContainer}>
             <ActivityIndicator size="large" color="#4F46E5" />
@@ -119,7 +147,11 @@ export default function AdminDashboard() {
               <TouchableOpacity
                 style={styles.cardWrapper}
                 activeOpacity={0.9}
-                onPress={() => navigation.navigate('ResultScreen')}
+                // onPress={() =>
+                //   navigation.navigate('ResultScreen', {
+                //     attemptId: '6a299634eeb395fbe467a502',
+                //   })
+                // }
               >
                 <DashboardCard
                   title="Attempts"
@@ -142,48 +174,33 @@ export default function AdminDashboard() {
             <View style={styles.quickGrid}>
               <TouchableOpacity
                 style={styles.quickCard}
-                onPress={() => navigation.navigate('ManageClassroom')}
+                onPress={() => navigation.navigate('AddStudentToClassroom')}
               >
-                <Icon name="school" size={30} color="#5B67F1" />
-                <Text style={styles.quickText}>Manage Classroom</Text>
+                <Icon name="person-add-outline" size={32} color="#5B67F1" />
+                <Text style={styles.quickText}>Add Student</Text>
               </TouchableOpacity>
-
+              66
               <TouchableOpacity
                 style={styles.quickCard}
-                onPress={() => navigation.navigate('ManageExam')}
+                onPress={() => navigation.navigate('ClassroomStudents')}
               >
-                <Icon name="document-text" size={30} color="#5B67F1" />
-                <Text style={styles.quickText}>Manage Exam</Text>
+                <Icon name="people-circle-outline" size={32} color="#5B67F1" />
+                <Text style={styles.quickText}>Students By Classroom</Text>
               </TouchableOpacity>
-
               <TouchableOpacity
                 style={styles.quickCard}
                 onPress={() => navigation.navigate('ManageQuestion')}
               >
-                <Icon name="add-circle" size={30} color="#5B67F1" />
-                <Text style={styles.quickText}>Create Question</Text>
+                <Icon name="help-circle-outline" size={32} color="#5B67F1" />
+                <Text style={styles.quickText}>Manage Questions</Text>
               </TouchableOpacity>
-
               <TouchableOpacity
                 style={styles.quickCard}
-                onPress={() => navigation.navigate('AddStudentToClassroom')}
+                onPress={() => navigation.navigate('AIQuestionGeneratorScreen')}
               >
-                <Icon name="people" size={30} color="#5B67F1" />
-                <Text style={styles.quickText}>Add Student</Text>
+                <Icon name="sparkles-outline" size={32} color="#5B67F1" />
+                <Text style={styles.quickText}> AI Question Generator</Text>
               </TouchableOpacity>
-
-              {/* <TouchableOpacity style={styles.quickCard}>
-                <Icon name="bar-chart" size={30} color="#5B67F1" />
-                <Text style={styles.quickText}>Analytics</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.quickCard}
-                onPress={() => navigation.navigate('Settings')}
-              >
-                <Icon name="settings" size={30} color="#5B67F1" />
-                <Text style={styles.quickText}>Settings</Text>
-              </TouchableOpacity> */}
             </View>
           </>
         )}
@@ -313,7 +330,7 @@ const styles = StyleSheet.create({
 
   quickText: {
     marginTop: 12,
-    fontSize: 16,
+    fontSize: 13,
     fontWeight: '700',
     color: '#111827',
   },

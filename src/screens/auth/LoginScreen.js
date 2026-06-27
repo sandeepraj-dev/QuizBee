@@ -19,8 +19,8 @@ import { authStore } from '../../store/authStore';
 import Toast from 'react-native-toast-message';
 
 export default function LoginScreen() {
-  const [username, setUsername] = useState('admin');
-  const [password, setPassword] = useState('123456');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
@@ -68,6 +68,7 @@ export default function LoginScreen() {
     } catch (error) {
       Toast.show({
         type: 'error',
+        position: 'bottom',
         text1: 'Login Failed',
         text2: error?.response?.data?.message || error.message,
       });

@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
 
 import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
   SafeAreaView,
   ScrollView,
-  Alert,
   StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import AppInput from '../../components/AppInput';
-import AppButton from '../../components/AppButton';
 import { useNavigation } from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
 import { registerAPI } from '../../api/auth.api';
+import AppButton from '../../components/AppButton';
+import AppInput from '../../components/AppInput';
 
 export default function RegisterScreen() {
   const [fullName, setFullName] = useState('');
@@ -31,7 +31,7 @@ export default function RegisterScreen() {
   const [role, setRole] = useState('ADMIN');
 
   const [showPassword, setShowPassword] = useState(false);
-  const [phone, setPhone] = useState('');
+  const [phone, setPhone] = useState(0);
   const [fullNameError, setFullNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [phoneError, setPhoneError] = useState('');
@@ -102,6 +102,7 @@ export default function RegisterScreen() {
       const payload = {
         username,
         password,
+        phone,
         role,
         fullName,
         email,
@@ -109,19 +110,23 @@ export default function RegisterScreen() {
 
       const response = await registerAPI(payload);
 
-      console.log(response);
+      Toast.show({
+        type: 'success',
+        text1: 'Success',
+        position: 'bottom',
+        text2: 'Registration successful',
+      });
 
-      Alert.alert('Success', 'Registration successful', [
-        {
-          text: 'OK',
-          onPress: () => navigation.navigate('Login'),
-        },
-      ]);
+      setTimeout(() => {
+        navigation.navigate('Login');
+      }, 1500);
     } catch (error) {
-      Alert.alert(
-        'Error',
-        error?.response?.data?.message || 'Registration failed',
-      );
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        position: 'bottom',
+        text2: error?.response?.data?.message || 'Registration failed',
+      });
     } finally {
       setLoading(false);
     }

@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
-import Toast from 'react-native-toast-message';
 import {
+  ActivityIndicator,
   SafeAreaView,
   ScrollView,
-  View,
+  StatusBar,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
-  StatusBar,
-  Alert,
-  ActivityIndicator,
+  View,
 } from 'react-native';
+import Toast from 'react-native-toast-message';
 
+import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
 
 import API from './../../api/axios';
 export default function CreateClassroomScreen() {
@@ -76,11 +75,12 @@ export default function CreateClassroomScreen() {
       setDescriptionError('');
     } catch (error) {
       console.log(error?.response?.data || error);
-
-      Alert.alert(
-        'Error',
-        error?.response?.data?.message || 'Failed to create classroom',
-      );
+      Toast.show({
+        type: 'error',
+        position: 'bottom',
+        text1: 'Error',
+        text2: error?.response?.data?.message || 'Registration failed',
+      });
     } finally {
       setLoading(false);
     }

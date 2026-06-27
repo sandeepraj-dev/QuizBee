@@ -17,53 +17,53 @@ import Icon from 'react-native-vector-icons/Ionicons';
 export default function SettingsScreen() {
   const navigation = useNavigation();
 
-  const [notifications, setNotifications] = useState(true);
-  const [darkMode, setDarkMode] = useState(false);
-
+  // const [notifications, setNotifications] = useState(true);
+  // const [darkMode, setDarkMode] = useState(false);
+  const user = authStore(state => state.user);
   const settingsSections = [
-    {
-      title: 'Management',
-      items: [
-        {
-          icon: 'people-outline',
-          label: 'Manage Users',
-          color: '#4F46E5',
-        },
-        {
-          icon: 'book-outline',
-          label: 'Course Management',
-          color: '#0EA5E9',
-        },
-        {
-          icon: 'school-outline',
-          label: 'Faculty Management',
-          color: '#10B981',
-        },
-      ],
-    },
+    // {
+    //   title: 'Management',
+    //   items: [
+    //     {
+    //       icon: 'people-outline',
+    //       label: 'Manage Users',
+    //       color: '#4F46E5',
+    //     },
+    //     {
+    //       icon: 'book-outline',
+    //       label: 'Course Management',
+    //       color: '#0EA5E9',
+    //     },
+    //     {
+    //       icon: 'school-outline',
+    //       label: 'Faculty Management',
+    //       color: '#10B981',
+    //     },
+    //   ],
+    // },
 
-    {
-      title: 'System',
-      items: [
-        {
-          icon: 'notifications-outline',
-          label: 'Notifications',
-          type: 'switch',
-          value: notifications,
-          onChange: setNotifications,
-          color: '#F59E0B',
-        },
+    // {
+    //   title: 'System',
+    //   items: [
+    //     {
+    //       icon: 'notifications-outline',
+    //       label: 'Notifications',
+    //       type: 'switch',
+    //       value: notifications,
+    //       onChange: setNotifications,
+    //       color: '#F59E0B',
+    //     },
 
-        {
-          icon: 'moon-outline',
-          label: 'Dark Mode',
-          type: 'switch',
-          value: darkMode,
-          onChange: setDarkMode,
-          color: '#6366F1',
-        },
-      ],
-    },
+    //     {
+    //       icon: 'moon-outline',
+    //       label: 'Dark Mode',
+    //       type: 'switch',
+    //       value: darkMode,
+    //       onChange: setDarkMode,
+    //       color: '#6366F1',
+    //     },
+    //   ],
+    // },
 
     {
       title: 'Account',
@@ -94,8 +94,11 @@ export default function SettingsScreen() {
       logout();
       navigation.navigate('Login');
     }
+    if (item.label === 'Change Password') {
+      navigation.navigate('ChangePasswordScreen');
+    }
     if (item.label === 'Profile Settings') {
-      navigation.navigate('StudentDashboard');
+      navigation.navigate('ProfileEditScreen');
     }
   };
 
@@ -158,12 +161,14 @@ export default function SettingsScreen() {
           />
 
           <View style={{ flex: 1 }}>
-            <Text style={styles.adminName}>Admin User</Text>
+            <Text style={styles.adminName}>{user?.fullName || '-'}</Text>
 
-            <Text style={styles.adminEmail}>admin@lms.com</Text>
+            <Text style={styles.adminEmail}>{user?.username || '-'}</Text>
           </View>
 
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('ProfileScreen')}
+          >
             <Icon name="create-outline" size={22} color="#4F46E5" />
           </TouchableOpacity>
         </View>
@@ -182,11 +187,11 @@ export default function SettingsScreen() {
         ))}
 
         {/* Footer */}
-        <View style={styles.footer}>
+        {/* <View style={styles.footer}>
           <Text style={styles.footerText}>LMS Admin Panel</Text>
 
           <Text style={styles.versionText}>Version 1.0.0</Text>
-        </View>
+        </View> */}
       </ScrollView>
     </SafeAreaView>
   );

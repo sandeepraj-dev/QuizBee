@@ -44,6 +44,7 @@ export default function SelectClassroomScreen() {
 
       Toast.show({
         type: 'error',
+        position: 'bottom',
         text1: 'Failed to load classrooms',
       });
     } finally {

@@ -48,6 +48,7 @@ export default function ManageExamScreen() {
       console.log(error);
 
       Toast.show({
+        position: 'bottom',
         type: 'error',
         text1: 'Failed to load exams',
       });
@@ -77,12 +78,14 @@ export default function ManageExamScreen() {
 
             Toast.show({
               type: 'success',
+              position: 'bottom',
               text1: 'Exam deleted successfully',
             });
 
             loadExams();
           } catch (error) {
             Toast.show({
+              position: 'bottom',
               type: 'error',
               text1: 'Delete failed',
             });
@@ -117,6 +120,7 @@ export default function ManageExamScreen() {
 
       Toast.show({
         type: 'success',
+        position: 'bottom',
         text1: `Exam ${isPublished ? 'published' : 'unpublished'} successfully`,
       });
 
@@ -125,6 +129,7 @@ export default function ManageExamScreen() {
       Toast.show({
         type: 'error',
         text1: 'Publish failed',
+        position: 'bottom',
       });
     }
   };
@@ -143,22 +148,26 @@ export default function ManageExamScreen() {
 
           <View
             style={[
-              styles.statusChip,
+              styles.statusBadge,
               {
-                backgroundColor: item.isPublished ? '#DCFCE7' : '#FEF3C7',
+                backgroundColor: item.isPublished ? '#DCFCE7' : '#FEE2E2',
               },
             ]}
           >
+            <Icon
+              name={item.isPublished ? 'checkmark-circle' : 'close-circle'}
+              size={12}
+              color={item.isPublished ? '#15803D' : '#DC2626'}
+            />
             <Text
-              style={{
-                color: item.isPublished ? '#16A34A' : '#D97706',
-                fontWeight: '700',
-                alignSelf: 'center',
-                alignContent: 'center',
-                marginTop: 7,
-              }}
+              style={[
+                styles.statusText,
+                {
+                  color: item.isPublished ? '#15803D' : '#DC2626',
+                },
+              ]}
             >
-              {item.isPublished ? 'Published' : 'unpublished'}
+              {item.isPublished ? 'Published' : 'Draft'}
             </Text>
           </View>
         </View>
@@ -299,19 +308,6 @@ export default function ManageExamScreen() {
         />
       </View>
 
-      {/* FAB */}
-      <TouchableOpacity
-        style={styles.fab}
-        onPress={() => navigation.navigate('CreateExam')}
-      >
-        <LinearGradient
-          colors={['#4F46E5', '#7C3AED']}
-          style={styles.fabGradient}
-        >
-          <Icon name="add" size={20} color="#FFF" />
-        </LinearGradient>
-      </TouchableOpacity>
-
       {loading ? (
         <View style={styles.loader}>
           <ActivityIndicator size="large" color="#4F46E5" />
@@ -332,6 +328,18 @@ export default function ManageExamScreen() {
           }
         />
       )}
+      {/* FAB */}
+      <TouchableOpacity
+        style={styles.fab}
+        onPress={() => navigation.navigate('CreateExam')}
+      >
+        <LinearGradient
+          colors={['#4F46E5', '#7C3AED']}
+          style={styles.fabGradient}
+        >
+          <Icon name="add" size={20} color="#FFF" />
+        </LinearGradient>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
@@ -495,12 +503,24 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 
-  statusChip: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
+  statusBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'flex-start',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
     borderRadius: 20,
+    minHeight: 24,
   },
 
+  statusText: {
+    fontSize: 12,
+    fontWeight: '600',
+    marginLeft: 4,
+    includeFontPadding: false, // Android
+    textAlignVertical: 'center', // Android
+  },
   infoRow: {
     flexDirection: 'row',
     marginTop: 15,

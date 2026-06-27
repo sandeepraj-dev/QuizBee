@@ -141,6 +141,7 @@ export default CreateQuestionScreen = () => {
   const validateQuestion = () => {
     if (!question.trim()) {
       Toast.show({
+        position: 'bottom',
         type: 'error',
         text1: 'Enter Question',
       });
@@ -149,6 +150,7 @@ export default CreateQuestionScreen = () => {
 
     if (!marks.trim()) {
       Toast.show({
+        position: 'bottom',
         type: 'error',
         text1: 'Enter Marks',
       });
@@ -157,6 +159,7 @@ export default CreateQuestionScreen = () => {
 
     if (!optionA.trim()) {
       Toast.show({
+        position: 'bottom',
         type: 'error',
         text1: 'Enter Option A',
       });
@@ -165,6 +168,7 @@ export default CreateQuestionScreen = () => {
 
     if (!optionB.trim()) {
       Toast.show({
+        position: 'bottom',
         type: 'error',
         text1: 'Enter Option B',
       });
@@ -173,6 +177,7 @@ export default CreateQuestionScreen = () => {
 
     if (!optionC.trim()) {
       Toast.show({
+        position: 'bottom',
         type: 'error',
         text1: 'Enter Option C',
       });
@@ -181,6 +186,7 @@ export default CreateQuestionScreen = () => {
 
     if (!optionD.trim()) {
       Toast.show({
+        position: 'bottom',
         type: 'error',
         text1: 'Enter Option D',
       });
@@ -189,6 +195,7 @@ export default CreateQuestionScreen = () => {
 
     if (!answer) {
       Toast.show({
+        position: 'bottom',
         type: 'error',
         text1: 'Select Correct Answer',
       });
