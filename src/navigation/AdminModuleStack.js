@@ -29,7 +29,7 @@ export default function AdminModuleStack() {
       />
       <Stack.Screen
         name="ModulesHome"
-        component={AdminModulesScreen}
+        component={AdminModulaesScreen}
         options={{ headerShown: false }}
       />
 
